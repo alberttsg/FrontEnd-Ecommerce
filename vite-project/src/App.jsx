@@ -1,9 +1,10 @@
+import { Tickets } from "./pages/Tickets/Tickets"
 
 function App() {
 
   return (
     <div>
-      hola
+      <Tickets/>
     </div>
   )
 }
