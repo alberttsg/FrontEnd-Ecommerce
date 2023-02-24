@@ -7,6 +7,7 @@ import { Badge } from 'antd';
 import image from '../assets/logoDone2.png';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd'; 
+import LinkContainer from './LinkContainer';
 
 
 
@@ -49,9 +50,7 @@ const Header = () => {
               
             </div>
         </div>
-        <div className="links-container">
-            <span>Los más vendidos</span><span>Deporte</span><span>Hombre</span><span>Mujer</span><span>Niñ@s</span><span>Contacto</span>
-        </div>
+        <LinkContainer/>
     </div>
     );
 };
