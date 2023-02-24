@@ -4,12 +4,21 @@ import './Header.scss';
 import {  UserOutlined, HeartOutlined, ShoppingCartOutlined  } from "@ant-design/icons";
 import HeaderButton from './HeaderButton';
 import { Badge } from 'antd';
-import image from '../assets/logoDone2.png'
+import image from '../assets/logoDone2.png';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'antd'; 
 
 
 
 const Header = () => {
+    // const {primary } = Button
+    const navigate = useNavigate()
+    const [userCheck, setUserCheck]= useState()
     const [cartCount, setCartCount] = useState(0);
+    const handleClickforUser=()=>{
+        console.log('handle user click for user, 15 line')
+        setUserCheck(!userCheck)
+    }
     const addProduct = ()=>{
         setCartCount(cartCount + 1);
     }
@@ -25,7 +34,19 @@ const Header = () => {
             </Badge>
             }/>
             <HeaderButton handleClick={()=>console.log('soy megustaaa')} icon={<HeartOutlined style={{fontSize: '30px' ,color: 'white'}}/>}/>
-            <HeaderButton handleClick={()=>console.log('soy user')} icon={<UserOutlined style={{fontSize: '30px' ,color: 'white'}}/>}/>
+
+
+                    <HeaderButton handleClick={handleClickforUser} icon={<UserOutlined style={{fontSize: '30px' ,color: 'white'}}/>}>
+                    {userCheck &&(
+                        <div className='user-check-class'>
+                            <Button className={'login-button-class'}  onClick={()=>navigate('/login')}> Login</Button>
+                            <p> ¿Aún no tienes cuenta?</p>
+                            <Button  className={'register-button-class'} onClick={()=>navigate('/register')}> Registrate!</Button>
+                            {/* <li className={'right-button'} text={'Todas las noticias'} onClick={()=>navigate('/news')}> Noticias</li> */}
+                        </div>
+                    )}
+                    </HeaderButton>
+              
             </div>
         </div>
         <div className="links-container">
@@ -36,4 +57,3 @@ const Header = () => {
 };
 
 export default Header;
-//<a href="https://www.freepik.es/vector-gratis/puntero-flecha-clic-carro-tienda-linea-logo-ideas-inspiracion-logo-diseno-plantilla-vector-ilustracion-aislada-sobre-fondo-blanco_25342202.htm#query=logo%20compra%20png&position=4&from_view=search&track=ais">Imagen de wangstdo</a> en Freepik
