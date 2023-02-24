@@ -1,9 +1,13 @@
 import React from 'react';
+import Footer from '../componentes/Footer';
+import Header from '../componentes/Header';
+import './Home.scss';
 
 const Home = () => {
     return (
-        <div>
-            Soy Homero
+        <div className='home-class-container'>
+           <Header/>
+           <Footer/>
         </div>
     );
 };
