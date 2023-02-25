@@ -4,7 +4,7 @@ import './Header.scss';
 import {  UserOutlined, HeartOutlined, ShoppingCartOutlined  } from "@ant-design/icons";
 import HeaderButton from '../HeaderButton';
 import { Badge } from 'antd';
-import image from '../assets/logoDone2.png';
+import image from '../../assets/logoDone2.png'
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd'; 
 import LinkContainer from '../LinkContainer';
@@ -37,7 +37,7 @@ const Header = () => {
             <HeaderButton handleClick={()=>console.log('soy megustaaa')} icon={<HeartOutlined style={{fontSize: '30px' ,color: 'white'}}/>}/>
 
 
-                    <HeaderButton handleClick={handleClickforUser} icon={<UserOutlined style={{fontSize: '30px' ,color: 'white'}}/>}>
+            <div className='user-button' onClick={handleClickforUser}> <UserOutlined style={{fontSize: '30px' ,color: 'white'}}/>
                     {userCheck &&(
                         <div className='user-check-class'>
                             <Button className={'login-button-class'}  onClick={()=>navigate('/login')}> Login</Button>
@@ -46,7 +46,7 @@ const Header = () => {
                             {/* <li className={'right-button'} text={'Todas las noticias'} onClick={()=>navigate('/news')}> Noticias</li> */}
                         </div>
                     )}
-                    </HeaderButton>
+                    </div>
               
             </div>
         </div>
