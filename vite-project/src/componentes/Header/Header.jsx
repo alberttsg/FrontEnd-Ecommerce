@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import InputHeader from './InputHeader';
+import InputHeader from '../InputHeader';
 import './Header.scss';
 import {  UserOutlined, HeartOutlined, ShoppingCartOutlined  } from "@ant-design/icons";
-import HeaderButton from './HeaderButton';
+import HeaderButton from '../HeaderButton';
 import { Badge } from 'antd';
 import image from '../assets/logoDone2.png';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd'; 
-import LinkContainer from './LinkContainer';
+import LinkContainer from '../LinkContainer';
 
 
 
