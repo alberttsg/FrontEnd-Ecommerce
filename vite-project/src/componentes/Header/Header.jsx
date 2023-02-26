@@ -23,6 +23,7 @@ const Header = () => {
     const addProduct = ()=>{
         setCartCount(cartCount + 1);
     }
+    
     return (
     <div className="header-rows-container">
         <div className='header-container'>  
