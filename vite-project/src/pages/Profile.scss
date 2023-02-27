@@ -9,7 +9,7 @@
     gap: 12px;
     .container-profile{
 
-        border: 1px solid black;
+        border: 1px;
         padding:  23px;
         display: flex;
         flex-direction: column;
@@ -17,6 +17,7 @@
         border-radius: 10px;
         background: rgb(2,0,36);
         background: linear-gradient(137deg, rgba(2,0,36,1) 0%,  rgb(74, 210, 163) 0%, rgb(55, 149, 116) 100%);
+       box-shadow: 0 -0.5px 10px 8.5px #afafaf;
     }
     
     .description-container{
