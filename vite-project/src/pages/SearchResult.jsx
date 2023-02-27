@@ -9,8 +9,8 @@ export default function SearchResult() {
 
   useEffect(() => {
     const getProducts = async () => {
-      await axios.get(`https://backend-ecommerce-development.up.railway.app/products/search/${search}`)
-        .then(res => setSearchResult(res.data));
+      await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/products/search/${search}`)
+        .then(res => console.log(res.data));
     }
     getProducts();
   }, [search])
