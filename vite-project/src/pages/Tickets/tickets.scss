@@ -1,46 +1,29 @@
 #ticket {
-  width: 500px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
+  margin: 20px;
 }
 
-#keys {
+#items {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   width: 100%;
-  font-weight: bold;
-  margin-bottom: 10px;
+  img{
+    height: 60px;
+  }
+
+  div{
+    margin: 15px;
+  }
 }
 
-#cart {
-  display: flex;
-}
-
-#product {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 33%;
-  margin-bottom: 20px;
-  border: 1px solid black;
-}
-
-#quantity {
+#picture {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 1px solid black;
-  width: 33%;
-  margin-bottom: 20px;
-  margin-left: 4px;
+  align-items: center;
 }
 
-#price {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: 1px solid black;
-  width: 33%;
-  margin-bottom: 20px;
-  margin-left: 4px;
+#total {
+  margin: 30px;
 }
