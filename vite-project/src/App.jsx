@@ -1,4 +1,6 @@
-import { BrowserRouter } from 'react-router-dom';
+import { Tickets } from "./pages/Tickets/Tickets"
+import { UserProvider } from "./context/UserContext/UserState";
+import { BrowserRouter } from "react-router-dom";
 import AppRoutes from './componentes/AppRoutes';
 import Header from './componentes/Header/Header';
 import Footer from './componentes/Footer/Footer';
@@ -9,11 +11,13 @@ function App() {
 
   return (
    <BrowserRouter>
-    <CartGlobalProvider>
-        <Header/>
-        <AppRoutes/>
-        <Footer/>
-    </CartGlobalProvider>
+      <UserProvider>
+        <CartGlobalProvider>
+            <Header/>
+            <AppRoutes/>
+            <Footer/>
+        </CartGlobalProvider>
+      </UserProvider>
    </BrowserRouter>
   )
 }
