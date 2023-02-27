@@ -29,7 +29,7 @@ const Header = () => {
             <div onClick={addProduct} className="left-side"><img src={image} alt="logo" className='logo-class'/></div>
             <InputHeader/>
             <div className="icons-container">
-            <HeaderButton handleClick={()=>console.log('soy carritoooooo')} icon={ <Badge count={cartCount}>
+            <HeaderButton handleClick={ ()=> navigate('/cart') } icon={ <Badge count={cartCount}>
                 <ShoppingCartOutlined style={{fontSize: '30px' ,color: 'white'}}/>
 
             </Badge>
