@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { UserContext } from '../../context/UserContext/UserState';
 import { Link } from 'react-router-dom';
 import { notification } from "antd";
+import './register.scss';
 
 const Register = () => {
   const { register } = useContext(UserContext);
@@ -37,8 +38,8 @@ const Register = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <div><h1>Register</h1></div>
-        <div>
+        <div className="forms-container"><h1>Register</h1></div>
+        <div className="forms-container">
           <label htmlFor="username">Username</label>
           <Form.Item
             name="username"
@@ -56,7 +57,7 @@ const Register = () => {
             <Input />
           </Form.Item>
         </div>
-        <div>
+        <div className="forms-container">
           <label htmlFor="email">E-mail</label>
           <Form.Item
             name="email"
@@ -73,8 +74,8 @@ const Register = () => {
           >
             <Input />
           </Form.Item>
-        </div>
-        <div>
+        </div >
+        <div className="forms-container"> 
           <label htmlFor="password">Password</label>
           <Form.Item
             name="password"
@@ -88,7 +89,7 @@ const Register = () => {
             <Input.Password />
           </Form.Item>
         </div>
-        <div>
+        <div className="forms-container">
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
@@ -96,7 +97,7 @@ const Register = () => {
           </Form.Item>
         </div>
 
-        <div>
+        <div className="forms-container">
           <Form.Item
             wrapperCol={{
               offset: 8,
