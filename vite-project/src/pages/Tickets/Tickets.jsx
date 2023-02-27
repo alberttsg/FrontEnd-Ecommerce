@@ -39,13 +39,14 @@ export const Tickets = () => {
 localStorage.setItem('cart', JSON.stringify(cart))
 
 const ticket = JSON.parse(localStorage.getItem('cart'))
+console.log(ticket)
 
 
 const putCart = async () => {
 
   const config = {
     headers:{
-      "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjNmOWYxZGUxNDZhYzRiY2RhYjE1MTA1Iiwicm9sZSI6ImNsaWVudCIsImlhdCI6MTY3NzMyNDc2NiwiZXhwIjoxNjc3NDExMTY2fQ.-3hOElNFvGpqSRzRPSCzfXlD9tjKGwtoirUmG-tGt50"
+      "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjNmOWYxZGUxNDZhYzRiY2RhYjE1MTA1Iiwicm9sZSI6ImNsaWVudCIsImlhdCI6MTY3NzUxNzY2NCwiZXhwIjoxNjc3NjA0MDY0fQ.dTtT-Dc7RFb7iOKvg41DlIXWAz9gkQ72P8I7qA3R4dE"
     }
   };
 
