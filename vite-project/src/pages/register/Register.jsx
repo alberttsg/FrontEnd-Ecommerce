@@ -97,7 +97,7 @@ const Register = () => {
           </Form.Item>
         </div>
 
-        <div className="forms-container">
+        <div className="forms-container"  >
           <Form.Item
             wrapperCol={{
               offset: 8,

@@ -20,10 +20,6 @@ const Header = () => {
     setShowUserDropdown(!showUserDropdown);
   }
 
-  const handleLogoutClick = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-  }
 
  
   const handleHeartClick = () => {
