@@ -126,7 +126,29 @@
         transform: scale(1.2)!important ;
     }
   }
-//   .ant-btn-custom{
-//     border: 1.5px solid rgb(87, 87, 120) ;
-
-//   }
+.logout-button-class{
+    background: linear-gradient(to left,#f7bd0f,  #5382ef ) !important;
+color: #fff;
+border: 2px solid darkblue;
+width: 60%;
+font-weight: 600;
+&:hover{
+    background: linear-gradient(to left,#a4d3fa,  #d0f5b4 ) !important;
+    color: rgb(4, 4, 4) !important;
+    border: 2px dashed rgb(1,1,1,0.707 ) !important;
+    transform: scale(1.2)!important ;
+}
+}
+.profile-button-class{
+    background: linear-gradient(to left,#f7bd0f,  #5382ef ) !important;
+    color: #fff;
+    border: 2px solid darkblue;
+    width: 60%; 
+    font-weight: 600;
+    &:hover{
+        background: linear-gradient(to left,#a4d3fa,  #d0f5b4 ) !important;
+        color: rgb(4, 4, 4) !important;
+        border: 2px dashed rgb(1,1,1,0.707 ) !important;
+        transform: scale(1.2)!important ;
+    }
+}
