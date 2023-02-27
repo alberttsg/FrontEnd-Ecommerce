@@ -2,10 +2,11 @@
   background-color: #3a3939;
   color: rgb(254, 254, 254);
   padding: 50px 0;
-  position: fixed;
+  // position: fixed;
+  min-height: 15vh;
   width: 100%;
-  left: 0;
-  bottom: 0;
+  // left: 0;
+  // bottom: 0;
 
   .container {
     display: flex;
@@ -17,7 +18,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     .footer-section {
       width: 25%;

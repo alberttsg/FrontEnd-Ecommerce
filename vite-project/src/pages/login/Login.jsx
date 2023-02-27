@@ -4,12 +4,15 @@ import { UserContext } from "../../context/UserContext/UserState";
 import { Link } from "react-router-dom";
 import { notification } from "antd";
 import "./login.scss";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { login } = useContext(UserContext);
 
   const onFinish = (values) => {
     login(values);
+    navigate('/profile')
     notification.success({
       message: "Bienvenid@",
       placement: 'bottomRight',
@@ -21,7 +24,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <Form
+      <Form 
         name="basic"
         labelCol={{
           span: 8,
