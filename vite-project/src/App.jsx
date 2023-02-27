@@ -8,7 +8,7 @@ import Footer from './componentes/Footer/Footer';
 function App() {
 
   return (
-    <div className="App">
+    
       <BrowserRouter>
       
         <UserProvider>
@@ -18,7 +18,7 @@ function App() {
         </UserProvider>
     
       </BrowserRouter>
-    </div>
+    
   )
 }
 

@@ -14,6 +14,7 @@ export const UserContext = createContext(initialState);
 export const UserProvider = ({ children }) => {
   const [state, dispatch ] = useReducer(UserReducer, initialState);
 
+
   const login = async (user) => {
     const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/login', user);
     dispatch({
@@ -44,7 +45,7 @@ export const UserProvider = ({ children }) => {
         token: state.token,
         user: state.user,
         login,
-        register
+        register,
       }}
     >
       {children}
