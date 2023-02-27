@@ -19,23 +19,23 @@ export const Profile = () => {
         }
     }
         useEffect(() => {
+            
+
+        },[])
+        
+        useEffect(() => {
             if(!token) {
                 navigate('/login')
             }
-        },[])
-
-        useEffect(() => {
-            console.log(token)
-
-                 const getUser = async () => {
-                     const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id`, axiosConfig)
-                     if (res.data) {
-                         const { username, email, role } = res.data
-                        setUserData({username, email, role})
-                     }
-                 }
-                 getUser()
-        },[])
+            const getUser = async () => {
+                const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, axiosConfig)
+                if (res.data) {
+                    const { username, email, role } = res.data
+                setUserData({username, email, role})
+                }
+            }
+            getUser()
+        },[]) 
 
     return (
         <div className="profile-container">
