@@ -1,8 +1,8 @@
 import { useRoutes } from 'react-router-dom';
 import Home from '../pages/Home';
-import Login from '../pages/Login';
+import Login from '../pages/login/Login';
 import { Profile } from '../pages/Profile';
-import Register from '../pages/Register';
+import Register from '../pages/register/Register';
 import Cart from '../pages/cart/Cart'
 
 
