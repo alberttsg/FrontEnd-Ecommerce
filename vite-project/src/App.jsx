@@ -1,8 +1,9 @@
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 import { UserProvider } from "./context/UserContext/UserState";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./components/Home/Home";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from './componentes/AppRoutes';
+import './App.scss'
+import Header from './componentes/Header/Header';
+import Footer from './componentes/Footer/Footer';
 
 function App() {
 
@@ -10,11 +11,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <UserProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
+          <Header />
+          <AppRoutes />
+          <Footer />
         </UserProvider>
       </BrowserRouter>
     </div>

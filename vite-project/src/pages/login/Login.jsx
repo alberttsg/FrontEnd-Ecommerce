@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { UserContext } from "../../context/UserContext/UserState";
 import { Link } from "react-router-dom";
 import { notification } from "antd";
+import "./login.scss";
 
 const Login = () => {
   const { login } = useContext(UserContext);
@@ -11,6 +12,7 @@ const Login = () => {
     login(values);
     notification.success({
       message: "Bienvenid@",
+      placement: 'bottomRight',
     });
   };
   const onFinishFailed = (errorInfo) => {
@@ -37,8 +39,8 @@ const Login = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <div><h1>Login</h1></div>
-        <div>
+        <div className="forms-container"><h1>Login</h1></div>
+        <div className="forms-container">
           <label htmlFor="username">Username</label>
           <Form.Item
             name="username"
@@ -56,7 +58,7 @@ const Login = () => {
             <Input />
           </Form.Item>
         </div>
-        <div>
+        <div className="forms-container">
           <label htmlFor="password">Password</label>
           <Form.Item
             name="password"
@@ -70,7 +72,7 @@ const Login = () => {
             <Input.Password />
           </Form.Item>
         </div>
-        <div>
+        <div className="forms-container">
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
@@ -80,7 +82,7 @@ const Login = () => {
             </a>
           </Form.Item>
         </div>
-        <div>
+        <div className="forms-container">
           <Form.Item
             wrapperCol={{
               offset: 8,
@@ -91,7 +93,7 @@ const Login = () => {
               <Button type="primary" htmlType="submit">
                 Login
               </Button>
-              Or <Link to={'/register'} >register now!</Link>
+              Or <Link to={'/register'} > register now!</Link>
             </div>
           </Form.Item>
         </div>
