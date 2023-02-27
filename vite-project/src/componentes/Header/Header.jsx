@@ -54,7 +54,7 @@ const Header = () => {
                         <div className='user-check-class'>
                     <Button className={'logout-button-class'}  onClick={()=>{
                         console.log('elimine el token!!!!')
-                        localStorage.removeItem('datos');
+                        localStorage.removeItem('token');
                         navigate('/')}}> Cerrar Sesion</Button>
                     
                     <Button  className={'profile-button-class'} onClick={()=>navigate('/profile')}> Ir al perfil</Button>
