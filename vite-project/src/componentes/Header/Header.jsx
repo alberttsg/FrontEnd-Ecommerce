@@ -26,7 +26,12 @@ const Header = () => {
     setCartCount(cartCount + 1);
   }
 
-
+  const handleLogoutClick = () => {
+    localStorage.removeItem('token');
+    setCartCount(0);
+    localStorage.removeItem('order')
+    navigate('/');
+  }
   return (
     <div className="header-rows-container">
       <div className='header-container'>
