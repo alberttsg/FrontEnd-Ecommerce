@@ -4,11 +4,13 @@ import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Avatar } from 'antd';
+import { Tickets } from './Tickets/Tickets';
 import './Profile.scss';
 
 
 export const Profile = () => {
     const navigate = useNavigate()
+
     const [userData, setUserData] = useState({})
     const token = JSON.parse(localStorage.getItem('token'))
     const axiosConfig = {
@@ -55,12 +57,10 @@ export const Profile = () => {
                    {userData.role}
                 </Descriptions.Item>
             </Descriptions>
+            <Tickets/>
             </div>
             }
-           
-            
         </div>
-       
     );
 };
 

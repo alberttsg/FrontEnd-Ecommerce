@@ -56,13 +56,9 @@ const Header = () => {
                         console.log('elimine el token!!!!')
                         localStorage.removeItem('token');
                         navigate('/')}}> Cerrar Sesion</Button>
-                    
                     <Button  className={'profile-button-class'} onClick={()=>navigate('/profile')}> Ir al perfil</Button>
-                  
-                    
                 </div>)}
                     </div>
-              
             </div>
         </div>
         <LinkContainer/>
