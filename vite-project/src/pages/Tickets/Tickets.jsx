@@ -39,8 +39,9 @@ export const Tickets = () => {
 localStorage.setItem('cart', JSON.stringify(cart))
 
 const ticket = JSON.parse(localStorage.getItem('cart'))
-console.log(ticket)
 
+
+const cartArray = ticket[0].items
 
 const putCart = async () => {
 
@@ -51,7 +52,7 @@ const putCart = async () => {
   };
 
   try {
-    const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart', ticket, config)
+    const res = await axios.put('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart', cartArray, config)
     console.log(res)
 
   } catch(error){
@@ -62,7 +63,12 @@ const putCart = async () => {
 putCart()
 const total = ticket[0].total
 
-const cartArray = ticket[0].items
+
+
+console.log('******')
+console.log(ticket)
+console.log(cartArray)
+
 
 cartArray.map((e)=>console.log(e))
 
