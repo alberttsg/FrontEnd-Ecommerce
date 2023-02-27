@@ -50,8 +50,6 @@ const putCart = async () => {
   };
 
   try {
-    console.log(ticket)
-    console.log(config)
     const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart', ticket, config)
     console.log(res)
 
@@ -61,10 +59,16 @@ const putCart = async () => {
 }
 
 putCart()
+const total = ticket[0].total
+
+const cartArray = ticket[0].items
+
+cartArray.map((e)=>console.log(e))
+
 
   return (
     <div id='ticket'>
-        {/* {
+        {
           cartArray.map((e, index)=>
           <div id='items' key={`items${index}`}>
             <div><b>Marca: </b>{e.product.brand}</div>
@@ -75,7 +79,7 @@ putCart()
           </div>
           )
         }
-        <div id='total'><b>Total:</b> { total }</div> */}
+        <div id='total'><b>Total:</b> { total }</div>
     </div>
   )
 }
