@@ -1,20 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Checkbox, Form, Input } from 'antd';
 import { UserContext } from "../../context/UserContext/UserState";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { notification } from "antd";
 import "./login.scss";
 
 const Login = () => {
   const { login } = useContext(UserContext);
-
+  const navigate = useNavigate();
   const onFinish = (values) => {
     login(values);
     notification.success({
       message: "Bienvenid@",
       placement: 'bottomRight',
     });
+    navigate('/');
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
