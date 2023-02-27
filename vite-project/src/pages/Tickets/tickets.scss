@@ -1,29 +1,21 @@
 #ticket {
-  width: 600px;
+  width: 700px;
   height: 600px;
   margin: 20px;
 }
 
-#items {
+#ticketsUser {
   display: flex;
   flex-direction: row;
   width: 100%;
+  gap: 40px;
+
   img{
-    height: 60px;
-  }
-
-  div{
-    margin: 15px;
+    width: 70px;
   }
 }
 
-#picture {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-#total {
-  margin: 30px;
+#divTickets {
+  font-size: 40px;
+  margin-bottom: 30px;
 }
