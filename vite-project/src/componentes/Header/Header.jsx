@@ -1,73 +1,72 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import InputHeader from '../InputHeader';
 import './Header.scss';
-import {  UserOutlined, HeartOutlined, ShoppingCartOutlined  } from "@ant-design/icons";
+import { UserOutlined, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import HeaderButton from '../HeaderButton';
 import { Badge } from 'antd';
 import image from '../../assets/logoDone2.png'
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd'; 
+import { Button } from 'antd';
 import LinkContainer from '../LinkContainer';
 
 
-
 const Header = () => {
-   const [auth, setAuth]=useState(false);
-    const navigate = useNavigate()
-    const [userCheck, setUserCheck]= useState()
-    const [cartCount, setCartCount] = useState(0);
+  const navigate = useNavigate();
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const token = localStorage.getItem('token');
+  const isLoggedIn = Boolean(token);
 
-    const handleClickforUser=()=>{
-        console.log('handle user click for user, 15 line')
-        setUserCheck(!userCheck)
-    }
+  // Estado para el contador del carrito
+  const [cartCount, setCartCount] = useState(0);
 
-    const addProduct = ()=>{
-        setCartCount(cartCount + 1);
-        setAuth(!auth);
-        console.log(auth);
-    }
-    return (
+  const handleUserButtonClick = () => {
+    setShowUserDropdown(!showUserDropdown);
+  }
+
+  const handleLogoutClick = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  }
+
+  // Manejador de eventos para el botón de corazón
+  const handleHeartClick = () => {
+    // Aumentar el contador del carrito en 1
+    setCartCount(cartCount + 1);
+  }
+
+  return (
     <div className="header-rows-container">
-        <div className='header-container'>  
-            <div onClick={addProduct} className="left-side"><img src={image} alt="logo" className='logo-class'/></div>
-            <InputHeader/>
-            <div className="icons-container">
-            <HeaderButton handleClick={()=>console.log('soy carritoooooo')} icon={ <Badge count={cartCount}>
-                <ShoppingCartOutlined style={{fontSize: '30px' ,color: 'white'}}/>
+      <div className='header-container'>
+        <div className="left-side" onClick={() => navigate('/')}><img src={image} alt="logo" className='logo-class' /></div>
+        <InputHeader />
+        <div className="icons-container">
+          <HeaderButton handleClick={() => console.log('soy carritoooooo')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
+          <HeaderButton handleClick={handleHeartClick} icon={<HeartOutlined style={{ fontSize: '30px', color: 'white' }} />} />
 
-            </Badge>
-            }/>
-            <HeaderButton handleClick={()=>console.log('soy megustaaa')} icon={<HeartOutlined style={{fontSize: '30px' ,color: 'white'}}/>}/>
+          <div className='user-button' onClick={handleUserButtonClick}>
+            <UserOutlined style={{ fontSize: '30px', color: 'white' }} />
+            {showUserDropdown && (
+              <div className='user-check-class'>
+                {isLoggedIn ? (
+                  <>
+                    <Button className={'logout-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
+                    <Button className={'profile-button-class'} onClick={() => navigate('/profile')}>Ir al perfil</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button className={'login-button-class'} onClick={() => navigate('/login')}>Iniciar sesión</Button>
+                    <Button className={'register-button-class'} onClick={() => navigate('/register')}>Registrarse</Button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
 
-
-            <div className='user-button' onClick={handleClickforUser}> <UserOutlined style={{fontSize: '30px' ,color: 'white'}}/>
-                    {auth? userCheck &&(
-                        <div className='user-check-class'>
-                            <Button className={'login-button-class'}  onClick={()=>navigate('/login')}> Login</Button>
-                            <p> ¿Aún no tienes cuenta?</p>
-                            <Button  className={'register-button-class'} onClick={()=>navigate('/register')}> Registrate!</Button>
-                            {/* <li className={'right-button'} text={'Todas las noticias'} onClick={()=>navigate('/news')}> Noticias</li> */}
-                        </div>
-                    ):userCheck&&(
-
-                        <div className='user-check-class'>
-                    <Button className={'logout-button-class'}  onClick={()=>{
-                        console.log('elimine el token!!!!')
-                        localStorage.removeItem('datos');
-                        navigate('/')}}> Cerrar Sesion</Button>
-                    
-                    <Button  className={'profile-button-class'} onClick={()=>navigate('/profile')}> Ir al perfil</Button>
-                  
-                    
-                </div>)}
-                    </div>
-              
-            </div>
         </div>
-        <LinkContainer/>
+      </div>
+      <LinkContainer />
     </div>
-    );
+  );
 };
 
 export default Header;
