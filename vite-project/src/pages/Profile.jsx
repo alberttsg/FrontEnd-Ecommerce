@@ -19,11 +19,6 @@ export const Profile = () => {
         }
     }
         useEffect(() => {
-            
-
-        },[])
-        
-        useEffect(() => {
             if(!token) {
                 navigate('/login')
             }
