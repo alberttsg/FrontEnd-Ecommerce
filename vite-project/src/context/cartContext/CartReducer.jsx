@@ -1,4 +1,4 @@
-export const AppReducer = (state,action) => {
+export const CartReducer = (state,action) => {
   switch (action.type) {
     case 'GET_CART':
       return{

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createContext, useReducer } from 'react';
-import { AppReducer } from './AppReducer';
+import { CartReducer } from './CartReducer';
 
 export const CartGlobalContext = createContext();
 
@@ -9,7 +9,7 @@ const initialState = {
 } 
 
 export const CartGlobalProvider = ({children}) =>{
-  const [state,dispatch] = useReducer(AppReducer,initialState);
+  const [state,dispatch] = useReducer(CartReducer,initialState);
 
   const  getCart = async () => {
     try{
