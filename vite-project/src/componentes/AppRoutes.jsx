@@ -3,7 +3,7 @@ import Home from '../pages/Home';
 import Login from '../pages/login/Login';
 import { Profile } from '../pages/Profile';
 import Register from '../pages/register/Register';
-
+import Cart from '../pages/cart/Cart'
 
 
 
@@ -27,6 +27,10 @@ const AppRoutes = () => {
                 element: <Profile/>,
                 path: '/profile'
               },
+              {
+                element: <Cart/>,
+                path: '/cart'
+              }
         
         ]
         );
