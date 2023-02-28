@@ -9,12 +9,14 @@ export const Tickets = () => {
     putCart()
   }, [])
 
+  const token = JSON.parse(localStorage.getItem('token'))
+
 
 const putCart = async () => {
 
   const config = {
     headers:{
-      "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjNmOWYxZGUxNDZhYzRiY2RhYjE1MTA1Iiwicm9sZSI6ImNsaWVudCIsImlhdCI6MTY3NzUxNzY2NCwiZXhwIjoxNjc3NjA0MDY0fQ.dTtT-Dc7RFb7iOKvg41DlIXWAz9gkQ72P8I7qA3R4dE"
+      "Authorization":token
     }
   };
 
