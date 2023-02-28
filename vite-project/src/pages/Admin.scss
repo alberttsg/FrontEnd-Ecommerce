@@ -1,0 +1,22 @@
+
+#bodyProducts{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#allProducts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 200px;
+
+  img {
+    width: 50px;
+  }
+}
