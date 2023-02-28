@@ -6,7 +6,7 @@ import { TwitterCircleFilled,FacebookFilled, InstagramFilled } from '@ant-design
 const Footer = () => {
     return (
         <footer className="footer">
-        <div className="container">
+        <div className="footer-container">
           <div className="footer-content">
             <div className="footer-section">
               <h4>Información de contacto</h4>

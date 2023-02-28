@@ -19,11 +19,6 @@ export const Profile = () => {
         }
     }
         useEffect(() => {
-            
-
-        },[])
-        
-        useEffect(() => {
             if(!token) {
                 navigate('/login')
             }
@@ -57,9 +52,9 @@ export const Profile = () => {
                    {userData.role}
                 </Descriptions.Item>
             </Descriptions>
-            <Tickets/>
             </div>
             }
+            <Tickets/>
         </div>
     );
 };
