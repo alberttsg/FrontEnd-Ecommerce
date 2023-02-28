@@ -11,7 +11,7 @@ export function Products() {
     const [products, setProducts] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [page, setPage] = useState(0)
-    const productsPerPage = 18
+    const productsPerPage = 45
     const maxPage = Math.ceil(products.length / productsPerPage) 
     const offSet = page * productsPerPage
     const currentPageProducts = products.slice(offSet, offSet + productsPerPage)
@@ -47,10 +47,10 @@ export function Products() {
         
         currentPageProducts.map(product => {
             return(<>
-                <Card
+                <Card 
                     style={{
                     width: 300,
-                 
+                    
                     }}
                     cover={
                     <img 

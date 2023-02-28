@@ -5,9 +5,9 @@ import './Home.scss';
 
 const Home = () => {
     return (
-        <div className='home-class-container'>
+        <div className='scroll-items'>
            <Products></Products>
-        </div>
+      </div>
     );
 };
 
