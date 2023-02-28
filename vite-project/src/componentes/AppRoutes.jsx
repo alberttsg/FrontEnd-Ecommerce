@@ -3,9 +3,39 @@ import Home from '../pages/Home';
 import Login from '../pages/login/Login';
 import { Profile } from '../pages/Profile';
 import Register from '../pages/register/Register';
+import Cart from '../pages/cart/Cart'
+
+
 import SearchResult from '../pages/SearchResult';
 
 const AppRoutes = () => {
+    return useRoutes (
+
+        [
+            {
+                element: <Home/>,
+                path: '/'
+              },
+              {
+                element: <Login/>,
+                path: '/login'
+              },
+              {
+                element: <Register/>,
+                path: '/register'
+              },
+              {
+                element: <Profile/>,
+                path: '/profile'
+              },
+              {
+                element: <Cart/>,
+                path: '/cart'
+              }
+        
+        ]
+        );
+    
   return useRoutes(
     [
       {

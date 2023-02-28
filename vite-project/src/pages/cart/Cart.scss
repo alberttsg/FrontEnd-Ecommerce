@@ -1,0 +1,16 @@
+.body-class-container{
+  display: flex;
+  position: absolute;
+  justify-content: space-evenly;
+  top: 105px;
+  bottom: 200px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.divider{
+  height: 500px;
+  border: solid 0.5px #bfbfbf
+}
