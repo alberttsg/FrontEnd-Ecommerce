@@ -1,0 +1,14 @@
+.container {
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+   margin-bottom: 10px;
+}
+.img-products{
+    object-fit:contain;
+    width: 100px;
+    height: 100px;
+    
+}
