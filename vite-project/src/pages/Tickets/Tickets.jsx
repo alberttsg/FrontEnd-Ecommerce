@@ -24,6 +24,9 @@ const putCart = async () => {
     const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/tickets/all', config)
 
     const tickets = res.data
+    console.log(tickets)
+
+    tickets.map((e)=>console.log(e.user.username))
 
     setTickets(tickets)
 
@@ -37,6 +40,25 @@ const putCart = async () => {
     <div id='divTickets'>Tickets</div>
       {
         tickets.map((e, index)=>(
+          <div key={`tickets${index}`} id='ticketsUser'>
+          <div><strong>Owner:</strong> {e.user.username}</div>
+          <div>{e.items.map((e, index)=>(
+            <div id='ticketsUser' key={`${index}`}>
+              <div> <strong>Brand:</strong>  {e.product.brand}</div>
+              <div><strong>Name:</strong> {e.product.name}</div>
+              <img src={e.product.image}/>
+              <div><strong>Price:</strong> <b>{e.product.price}</b> $</div>
+            </div>
+          ))}</div>
+          </div>
+        ))
+      }
+
+
+
+
+      {/* {
+        tickets.map((e, index)=>(
           e.items.map((e)=>(
             <div id='ticketsUser' key={`${index}`}>
               <div> <strong>Brand:</strong>  {e.product.brand}</div>
@@ -46,8 +68,7 @@ const putCart = async () => {
             </div>
           ))
       ))
-      }
-        {/* <div id='total'><b>Total:</b> { total }</div> */}
+      } */}
     </div>
   )
 }

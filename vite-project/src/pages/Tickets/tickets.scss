@@ -1,10 +1,10 @@
 #ticket {
-
-  border: 1px;
-  padding:  10px;
+//   border: 1px;
+//   padding:  10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
   border-radius: 10px;
   background: rgb(2,0,36);
   background: linear-gradient(137deg, rgba(2,0,36,1) 0%,  rgb(74, 210, 163) 0%, rgb(55, 149, 116) 100%);
@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: 40px;
+  gap: 30px;
   padding: 1rem;
 
   img{
@@ -33,6 +33,4 @@
 #divTickets {
   font-size: 40px;
   margin-bottom: 30px;
-  // position: absolute;
-  // padding-bottom: 1rem;
 }
