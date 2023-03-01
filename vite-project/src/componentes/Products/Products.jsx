@@ -41,7 +41,6 @@ export function Products() {
             const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
             const data = res.data
             setProducts(data)
-           
         }   
       getProducts()  
     }, [])
@@ -67,7 +66,7 @@ export function Products() {
                     />
                     }
                     actions={[
-                    <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}} className=''/>,
+                    <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
                     <ShoppingCartOutlined key="cart" />,
                     ]}
                     >
@@ -81,12 +80,12 @@ export function Products() {
         })
             } 
                     
-                     <Modal mask={false} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className='modal'>
+                     <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
                      <h1>{modalProduct.name}.</h1>
                      <img src={modalProduct.image} alt={modalProduct.name} />
-                     <p>{modalProduct.brand}</p>
+                     <p>Brand: {modalProduct.brand}</p>
 
-                     <p className="price">Price: {modalProduct.price} €</p>
+                     <p className="price">Price: {modalProduct.price}€</p>
                     </Modal>
        
     </div>
