@@ -1,0 +1,38 @@
+
+#bodyProducts{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#allProducts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 420px;
+  height: 370px;
+  transition: all 0.5s;
+
+  img {
+    width: 110px;
+  }
+
+}
+
+#allProducts:hover{
+  opacity: 0.1;
+  cursor: pointer;
+  scale: 0.9;
+}
+
+#divProducts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

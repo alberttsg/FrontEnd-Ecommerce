@@ -4,7 +4,7 @@ import Login from '../pages/login/Login';
 import { Profile } from '../pages/Profile';
 import Register from '../pages/register/Register';
 import Cart from '../pages/cart/Cart'
-
+import { Admin } from '../pages/Admin'
 
 
 const AppRoutes = () => {
@@ -30,11 +30,14 @@ const AppRoutes = () => {
               {
                 element: <Cart/>,
                 path: '/cart'
+              },
+              {
+                element: <Admin/>,
+                path: '/admin'
               }
-        
         ]
         );
-    
+
 };
 
 export default AppRoutes;
