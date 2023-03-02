@@ -1,24 +1,44 @@
 import CartArticles from '../../componentes/CartArticles/CartArticles'
 import CartCheckout from '../../componentes/CartCheckout/CartCheckout'
-import { Card, Space, } from 'antd'
+import { useContext, useEffect } from 'react'
+import { Card, Space } from 'antd'
+import { CartGlobalContext } from '../../context/cartContext/CartGlobalState'
 import './Cart.scss'
 
+
 function Cart(){
-  const array = [1,2,3,4,5];
+  const { cart, cartTotal, getCart } = useContext(CartGlobalContext);
+
+  useEffect(() => {
+    getCart();
+  },[])
+
+  console.log(cart);
+  console.log(cartTotal)
+
   return(
     <div className='body-class-container'>
      {  
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {
-            array.map((e,i)=>(
-              <CartArticles key={'art'+i}/>
+            cart.map((e,i)=>
+            (
+              <CartArticles 
+                key={'art'+i}
+                productName={e.product.name}
+                productImg={e.product.image}
+                product_id={e.product._id}
+                quantity={e.quantity}
+              />
             ))
           }
         </Space>
       }
       <div className='divider'/>
       <Card style={ { width: 300 } }>
-        <CartCheckout/>
+        <CartCheckout 
+          total = { cartTotal }
+        />
       </Card>
     </div>
   )

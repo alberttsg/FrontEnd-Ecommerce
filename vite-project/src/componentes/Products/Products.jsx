@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Products.scss';
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { ShoppingCartOutlined, InfoCircleOutlined ,SettingOutlined } from '@ant-design/icons';
 import { Card } from 'antd';
 import { Button, Modal } from 'antd';
+import { CartGlobalContext } from "../../context/cartContext/CartGlobalState";
 
 export function Products() {
     const { Meta } = Card;
+    const { addCart } = useContext(CartGlobalContext);
     const [products, setProducts] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [page, setPage] = useState(0)
@@ -38,8 +40,12 @@ export function Products() {
         
     }, [])
     useEffect(()=>{
-        console.log(products)
+      console.log(products)
     },[products])
+
+    function onClickCartHandler(addProduct){
+      addCart(addProduct._id,1);
+    }
 
   return (
     <div className="container">
@@ -62,7 +68,7 @@ export function Products() {
                     actions={[
                     <InfoCircleOutlined key="info"  onClick={showModal}/>,
                     
-                    <ShoppingCartOutlined key="cart" />,
+                    <ShoppingCartOutlined key="cart" onClick={()=> onClickCartHandler(product)}/>,
                     ]}
                     >
                     <Meta

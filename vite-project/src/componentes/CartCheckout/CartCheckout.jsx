@@ -16,7 +16,7 @@ function CartCheckout(props){
       <Divider/>
       <div className='checkoutPrices'>
         <span>SubTotal</span>
-        <span>100</span>
+        <span>{total}</span>
       </div>
       <div className='checkoutPrices'>
         <span>Shipping</span>
@@ -25,8 +25,10 @@ function CartCheckout(props){
       <Divider/>
       <Space direction='vertical' size={100} align='center'>
         <div className='checkoutPrices'>
-          <span>Total</span>
-          <span>200</span>
+          <Space size={100}>
+            <span>Total</span>
+            <span>{ total + 100}</span>
+          </Space>
         </div>
         <Button type="primary" shape="round" size='large'>
           Payment

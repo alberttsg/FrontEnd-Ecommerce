@@ -3,9 +3,17 @@ export const CartReducer = (state,action) => {
     case 'GET_CART':
       return{
         ...state,
-        cart: action.payload
+        cart: action.payload.items,
+        cartTotal: Math.round((action.payload.total + Number.EPSILON) * 100) / 100,
+      };
+    case 'ADD_CART':
+      return{
+        ...state,
+        cart: action.payload.items,
+        cartTotal: Math.round((action.payload.total + Number.EPSILON) * 100) / 100,
       };
     default:
       return state;
-  }
+  };
+  
 };

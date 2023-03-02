@@ -1,46 +1,37 @@
 import { Card } from 'antd';
-import { PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined} from '@ant-design/icons'
+import { PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined, SecurityScanTwoTone } from '@ant-design/icons'
 import { useContext, useEffect, useState } from 'react'
-import { CartGlobalContext } from '../../context/CartGlobalState'
-import axios from 'axios'
+import { CartGlobalContext } from '../../context/cartContext/CartGlobalState'
 import './CartArticles.scss'
 
 function CartArticles(props) {
-  const { articleName } = props;
-  const { cart,getCart } = useContext(CartGlobalContext);
-  const [ quantity,setQuantity ] = useState(0);
+  const { addCart } = useContext(CartGlobalContext);
+  const { productName, productImg, product_id, quantity } = props;
 
-  useEffect(() => {
-    console.log(cart);
-  },[cart])
-
-  useEffect(() => {
-    getCart();
-  },[])
-
-  function onClickHandler(e){
-    const operation = e.target.parentElement.id;
-    if(operation === 'minus'){
-      quantity - 1 <= 0 ? e.target.parentElement.remove():setQuantity(quantity - 1);
-    }
-    if(operation === 'plus'){
-      setQuantity(quantity + 1);
+  function onClickHandler(e) {
+    switch (e) {
+      case '-':
+        addCart(product_id, quantity - 1);
+        break;
+      case '+':
+        addCart(product_id, quantity + 1);
+        break;
     }
   }
 
   return (
 
-      <Card size="small" style={ { width: 700, height: 120} }>
-        <div className='container'>
-          <img height={ 92 } width={ 92 } alt='product img'/>
-          <span>Product Name</span>
-          <div className='container'>
-            <PlusCircleOutlined id='plus' className='quantityButton' onClick={(e) => onClickHandler(e)}/>
-            <span>{ quantity }</span>
-            <MinusCircleOutlined id='minus' className='quantityButton' onClick={(e) => onClickHandler(e)}/>
-          </div>
+    <Card size="small" style={{ width: 800, height: 120 }}>
+      <div className='containerCardInfo'>
+        <img src={productImg} height={92} width={92} alt='product img' />
+        <p>{productName}</p>
+        <div id={product_id} className='containerCardInfo'>
+          <PlusCircleOutlined id='plus' className='quantityButton' onClick={() => onClickHandler('+')} />
+          <span>{quantity}</span>
+          <MinusCircleOutlined id='minus' className='quantityButton' onClick={() => onClickHandler('-')} />
         </div>
-      </Card>
+      </div>
+    </Card>
   )
 }
 

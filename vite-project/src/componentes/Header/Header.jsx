@@ -38,7 +38,7 @@ const Header = () => {
         <div className="left-side" onClick={() => navigate('/')}><img src={image} alt="logo" className='logo-class' /></div>
         <InputHeader />
         <div className="icons-container">
-          <HeaderButton handleClick={() => console.log('soy carritoooooo')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
+          <HeaderButton handleClick={() => navigate('/cart')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
           <HeaderButton handleClick={handleHeartClick} icon={<HeartOutlined style={{ fontSize: '30px', color: 'white' }} />} />
 
           <div className='user-button' onClick={handleUserButtonClick}>
