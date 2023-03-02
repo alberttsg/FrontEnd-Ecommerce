@@ -1,0 +1,21 @@
+.productCreated {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    height: 300px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 19px;
+    box-shadow: 10px 10px 30px grey;
+
+    img{
+        width: 60px;
+    }
+
+    div{
+        margin: 10px;
+    }
+}
