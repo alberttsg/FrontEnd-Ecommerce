@@ -1,18 +1,26 @@
-.container {
-  
+
+.container{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+
+}
+.container-products{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
     flex-wrap: wrap;
-//    margin-bottom: 10px;
-   padding: 1rem;
-   height: 70vh;
+    overflow: scroll;
+  
+   
 }
 .img-products{
     object-fit:contain;
     width: 50px;
     height: 100px;
     margin: 0.8rem;
+    
     
 }
 .ant-card {
@@ -21,8 +29,28 @@
     -moz-box-shadow: 7px 9px 5px 1px rgba(199,191,199,1);
     box-shadow: 7px 9px 5px 1px rgba(199,191,199,1);
     // background-color: #d4d0b4;
+    
 
   }
   .ant-card-actions{
     border: darkgray
   }
+
+  .modal{
+    p{
+      text-align: center;
+    }
+    img{
+      object-fit:contain;
+      width: 450px;
+      height: 500px;
+      margin: 0.8rem;
+    }
+    .price{
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  
+  

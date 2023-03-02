@@ -1,4 +1,3 @@
-import { Tickets } from "./pages/Tickets/Tickets"
 import { UserProvider } from "./context/UserContext/UserState";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from './componentes/AppRoutes';
