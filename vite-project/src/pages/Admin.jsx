@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import axios from 'axios'
 import './Admin.scss'
 import { DeleteOutlined } from '@ant-design/icons';
 import { Form, Modal, Input, Button } from 'antd';
 import { ProductCreated } from './ProductCreated';
+import { useNavigate } from 'react-router-dom';
 
 export const Admin = () => {
-
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false)
   const [ products, setProducts ] = useState([])
   const [ btnUpdate, setBtnUpdate ] = useState('Edit')
@@ -108,6 +109,11 @@ const deleteProduct = async(_id) => {
 
   return (
     <div id='bodyProducts' >
+       <div className='handle-actions-container'>
+
+    <div>Crear Producto</div>
+    <div onClick={()=>navigate('/admin/user')}>Administrar Usuarios</div>
+    </div>
     <div className='formAndProduct'>
       <Form className='form'
     form={form}
