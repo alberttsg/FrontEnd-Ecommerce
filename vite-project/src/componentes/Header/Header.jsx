@@ -21,7 +21,7 @@ const Header = () => {
   }
 
 
- 
+
   const handleHeartClick = () => {
     setCartCount(cartCount + 1);
   }
@@ -29,9 +29,21 @@ const Header = () => {
   const handleLogoutClick = () => {
     localStorage.removeItem('token');
     setCartCount(0);
-    localStorage.removeItem('order')
-    navigate('/');
+    localStorage.removeItem('order');
+    setShowUserDropdown(false);
+    navigate('/login');
   }
+  const handleProfile = () => {
+    setShowUserDropdown(false);
+    navigate('/profile');
+  }
+
+  const addProduct = () => {
+    setCartCount(cartCount + 1);
+    setAuth(!auth);
+    console.log(auth);
+  }
+
   return (
     <div className="header-rows-container">
       <div className='header-container'>
@@ -48,7 +60,7 @@ const Header = () => {
                 {isLoggedIn ? (
                   <>
                     <Button className={'logout-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
-                    <Button className={'profile-button-class'} onClick={() => navigate('/profile')}>Ir al perfil</Button>
+                    <Button className={'profile-button-class'} onClick={handleProfile}>Ir al perfil</Button>
                   </>
                 ) : (
                   <>
@@ -59,8 +71,8 @@ const Header = () => {
               </div>
             )}
           </div>
-    </div>
-    </div>
+        </div>
+      </div>
     </div>
   );
 };

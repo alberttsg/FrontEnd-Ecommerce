@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { ShoppingCartOutlined, InfoCircleOutlined} from '@ant-design/icons';
 import { Card, Modal } from 'antd';
+import { ProductRating } from "../Reviews/ProductRating";
 
 
 export function Products() {
@@ -72,7 +73,12 @@ export function Products() {
                     >
                     <Meta
                     title={product.name} 
-                    description={product.price + '€'}
+                    description={
+                      <div style={{display: 'flex', flexFlow: 'column'}} >
+                      <ProductRating product={product._id} />
+                      <p>{product.price + '€'}</p>
+                      </div>
+                    }
                     />
                     </Card>
                    </div>
@@ -93,4 +99,4 @@ export function Products() {
     </div>
         </>
   )
-  }
+}
