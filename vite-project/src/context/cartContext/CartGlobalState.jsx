@@ -50,9 +50,22 @@ export const CartGlobalProvider = ({ children }) => {
         payload: res.data,
       });
     } catch (e) {
-      console.log(e);
+      console.log(e.response.data);
     }
   };
+
+  const clearCart = async () => {
+    try{
+      const res = axios.post('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart');
+      dispatch({
+        type:'CLEAR_CART',
+        payload: res.data,
+      });
+      console.log(res,'clear');
+    }catch(e){
+      console.log(e.response.data);
+    }
+  }
 
   return (
     <CartGlobalContext.Provider
@@ -61,6 +74,7 @@ export const CartGlobalProvider = ({ children }) => {
         cartTotal: state.cartTotal,
         getCart,
         addCart,
+        clearCart,
       }}>
       {children}
     </CartGlobalContext.Provider>
