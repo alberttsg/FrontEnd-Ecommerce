@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ReviewsDrawer } from './ReviewsDrawer';
-import { getOverallRating } from '../../logic/fetch';
+import { getOverallRating, countProductReviews } from '../../logic/fetch';
 import { Rate } from 'antd';
 
 export function ProductRating(props) {
   const { product } = props;
   const [overallRating, setOverallRating] = useState(0);
+  const [reviewCount, setReviewCount] = useState(0);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const openDrawer = () => {
@@ -19,15 +20,18 @@ export function ProductRating(props) {
   useEffect(() => {
     async function getData() {
       const rating = await getOverallRating(product);
+      const count = await countProductReviews(product);
       setOverallRating(rating);
+      setReviewCount(count);
     };
     getData();
   }, [])
 
   return (
     <>
-      <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginBottom: '-20px' }} onClick={openDrawer} >
+      <span onClick={openDrawer} >
         <Rate disabled allowHalf value={overallRating} />
+        <span style={{margin: '0 10px'}} >({reviewCount} {reviewCount == 1 ? 'reseña' : 'reseñas'})</span>
       </span>
       <ReviewsDrawer product={product} isOpen={isDrawerOpen} toClose={onDrawerClose} />
     </>

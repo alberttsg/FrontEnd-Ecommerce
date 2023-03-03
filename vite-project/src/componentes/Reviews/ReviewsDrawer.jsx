@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ReviewForm } from './ReviewForm';
 import { UserReviews } from './UserReviews';
 import { getOverallRating } from '../../logic/fetch';
 import { Rate, Drawer, Space, Button } from 'antd';
-
+import { UserContext } from '../../context/UserContext/UserState';
 
 export function ReviewsDrawer(props) {
   const { product, isOpen, toClose } = props;
+  const { user } = useContext(UserContext);
   const [overallRating, setOverallRating] = useState(0);
   const [isFormOpen, setFormOpen] = useState(false);
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']

@@ -13,33 +13,27 @@ export function ReviewForm(props) {
   useEffect(() => {
     async function getData() {
       const getReview = await getUserReview(product);
-      console.log(getReview);
       setUserReview(getReview.data);
     };
     getData();
-  }, [hasReviewed])
+  }, [])
 
   const postReview = async (inputs) => {
     setLoading(true);
     await postProductReview(product, inputs);
+    const getReview = await getUserReview(product);
+    setUserReview(getReview.data);
     setLoading(false);
   }
 
   if (!isOpen) return null;
 
-  if (hasReviewed) return (
+  if (loading) return (
     <Space direction="vertical" style={{ width: '100%' }}>
-      {loading ?
         <Spin tip="Publicando">
           <h3>Tus reseñas</h3>
           <ReviewCard review={hasReviewed} loading={loading} />
         </Spin>
-        :
-        <>
-          <h3>Tus reseñas</h3>
-          <ReviewCard review={hasReviewed} loading={loading} />
-        </>
-      }
     </Space>
   )
 

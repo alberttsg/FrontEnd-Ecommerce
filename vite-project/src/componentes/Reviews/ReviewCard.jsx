@@ -29,7 +29,7 @@ export function ReviewCard(props) {
       >
         <div style={{ display: 'flex', flexFlow: 'column', gap: '10px' }} >
           <p>{commentary}</p>
-          <p><em>{user.username}</em></p>
+          <p><em>{'pepe'}</em></p>
         </div>
       </Skeleton>
     </Card>
