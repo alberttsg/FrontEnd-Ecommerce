@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { ShoppingCartOutlined, InfoCircleOutlined, SettingOutlined } from '@ant-design/icons';
 import { Button, Modal, Card } from 'antd';
-import { ProductRating } from "../Rating";
+import { ProductRating } from "../Reviews/ProductRating";
 
 export function Products() {
   const { Meta } = Card;
