@@ -13,11 +13,40 @@ const customReview = {
 
 export function ProductRating(props) {
   const { product } = props;
-  const [overallRating, setOverallRating] = useState(3);
+  const [overallRating, setOverallRating] = useState(0);
+
+
+
+  return (
+    <>
+      <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginBottom: '-20px' }} onClick={openDrawer} >
+        <Rate disabled allowHalf value={overallRating} />
+      </span>
+      <ReviewsDrawer product={product} />
+    </>
+  )
+}
+
+export async function getOverallRating(productId) {
+  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/rating/${product}`);
+  return res.data;
+}
+
+export async function getProductReviews(productId) {
+  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/id/${product}`);
+  return res.data;
+}
+
+export function ReviewsDrawer(props) {
+  const { product } = props;
+  const [overallRating, setOverallRating] = useState(0);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isFormOpen, setFormOpen] = useState(false);
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
-  const loading = false;
+
+  useEffect(() => {
+    getOverallRating(product);
+  }, [])
 
   const openDrawer = () => {
     setDrawerOpen(true);
@@ -35,13 +64,8 @@ export function ProductRating(props) {
     setFormOpen(false);
   };
 
-
   return (
-    <>
-      <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginBottom: '-20px' }} onClick={openDrawer} >
-        <Rate disabled allowHalf value={overallRating} />
-      </span>
-      <Drawer
+    <Drawer
         title={
           <>
             <span>Reseñas de usuarios</span>
@@ -64,7 +88,6 @@ export function ProductRating(props) {
         <ReviewForm open={isFormOpen} />
         <UserReviews />
       </Drawer>
-    </>
   )
 }
 
