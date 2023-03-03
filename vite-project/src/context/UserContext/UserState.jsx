@@ -6,43 +6,60 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 const initialState = {
   token: token ? token : null,
+  userInfo: {},
   user: {},
-  users:[]
+  users: []
 };
 
 export const UserContext = createContext(initialState);
 
 export const UserProvider = ({ children }) => {
-  const [state, dispatch ] = useReducer(UserReducer, initialState);
-
+  const [state, dispatch] = useReducer(UserReducer, initialState);
 
   const login = async (user) => {
     const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/login', user);
+    const userInfo = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, {
+      headers: {
+        Authorization: res.data.token
+      }
+    });
+    console.log(userInfo)
     dispatch({
       type: "LOGIN-REGISTER",
       payload: res.data,
     });
+    dispatch({
+      type: "USER_INFO",
+      payload: userInfo.data,
+    });
     if (res.data) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
-      console.log(res.data)
     }
   };
-  
-  const register = async (user) =>{
-    const res = await axios.post ('https://backend-ecommerce-production-ce12.up.railway.app/register', user);
+
+  const register = async (user) => {
+    const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/register', user);
+    const userInfo = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/users/id/', {
+      headers: {
+        Authorization: res.data.token
+      }
+    });
     dispatch({
       type: 'LOGIN-REGISTER',
       payload: res.data,
     });
+    dispatch({
+      type: "USER_INFO",
+      payload: userInfo.data,
+    });
     if (res.data) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
-      console.log(res.data)
     }
   }
 
-  const getUsers = async () =>{
+  const getUsers = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/users/all',{
+    const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/users/all', {
       headers: {
         Authorization: token
       }
@@ -54,9 +71,9 @@ export const UserProvider = ({ children }) => {
     return res;
   }
 
-  const getUserById = async (id) =>{
+  const getUserById = async (id) => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,{
+    const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`, {
       headers: {
         Authorization: token
       }
@@ -68,9 +85,9 @@ export const UserProvider = ({ children }) => {
     return res;
   }
 
-  const editUser = async (user,id) =>{
+  const editUser = async (user, id) => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const res = await axios.put (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,user,{
+    const res = await axios.put(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`, user, {
       headers: {
         Authorization: token
       }
@@ -83,9 +100,9 @@ export const UserProvider = ({ children }) => {
     return res;
   }
 
-  const deleteUser = async (id) =>{
+  const deleteUser = async (id) => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const res = await axios.delete (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,{
+    const res = await axios.delete(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`, {
       headers: {
         Authorization: token
       }
@@ -97,6 +114,7 @@ export const UserProvider = ({ children }) => {
     getUsers();
     return console.log(res);
   }
+
   return (
     <UserContext.Provider
       value={{
@@ -108,7 +126,8 @@ export const UserProvider = ({ children }) => {
         users: state.users,
         getUserById,
         editUser,
-        deleteUser
+        deleteUser,
+        userInfo: state.userInfo
       }}
     >
       {children}

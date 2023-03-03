@@ -10,6 +10,11 @@ const users = (state, action) => {
         ...state,
         users: action.payload,
       };
+    case "USER_INFO":
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     case "GET_USER_BY_ID":
       return {
         ...state,
@@ -27,11 +32,11 @@ const users = (state, action) => {
           return user;
         }),
       };
-      case "DELETE_USER":
-        return {
-          ...state,
-          users: state.users.filter(user=> user._id != action.payload._id) 
-        };
+    case "DELETE_USER":
+      return {
+        ...state,
+        users: state.users.filter(user => user._id != action.payload._id)
+      };
     default:
       return state;
   }

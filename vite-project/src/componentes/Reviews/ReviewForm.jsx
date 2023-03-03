@@ -1,10 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ReviewCard } from './ReviewCard';
 import { postProductReview, getUserReview } from '../../logic/fetch';
 import { Space, Spin, Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
+import { UserContext } from '../../context/UserContext/UserState';
+
+const customReview = {
+  user: {
+    name: 'Pepe el enfadao',
+    avatar: 'https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png'
+  },
+  title: 'Este producto es una mierda',
+  rating: 2,
+  commentary: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis quo animi blanditiis possimus doloremque. Quos ullam odit, recusandae modi possimus voluptatum. Quas eveniet laudantium consectetur magnam iure ad enim voluptatem.'
+}
 
 export function ReviewForm(props) {
   const { isOpen, product } = props;
+  const { userInfo } = useContext(UserContext);
   const [reviewRating, setReviewRating] = useState(3);
   const [hasReviewed, setUserReview] = useState();
   const [loading, setLoading] = useState(false);
@@ -12,28 +24,34 @@ export function ReviewForm(props) {
 
   useEffect(() => {
     async function getData() {
+      setLoading(true);
       const getReview = await getUserReview(product);
-      setUserReview(getReview.data);
+      if (getReview) setUserReview(getReview);
+      setLoading(false);
     };
     getData();
-  }, [])
+  }, [userInfo])
+
+  useEffect(() => {
+    console.log(userInfo)
+  })
 
   const postReview = async (inputs) => {
     setLoading(true);
     await postProductReview(product, inputs);
     const getReview = await getUserReview(product);
-    setUserReview(getReview.data);
+    if (getReview) setUserReview(getReview);
     setLoading(false);
   }
 
   if (!isOpen) return null;
 
-  if (loading) return (
+  if (hasReviewed) return (
     <Space direction="vertical" style={{ width: '100%' }}>
-        <Spin tip="Publicando">
-          <h3>Tus reseñas</h3>
-          <ReviewCard review={hasReviewed} loading={loading} />
-        </Spin>
+      <Spin tip="Publicando">
+        <h3>Tus reseñas</h3>
+        <ReviewCard review={customReview} loading={loading} />
+      </Spin>
     </Space>
   )
 

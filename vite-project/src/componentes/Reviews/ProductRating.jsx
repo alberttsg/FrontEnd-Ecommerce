@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ReviewsDrawer } from './ReviewsDrawer';
-import { getOverallRating, countProductReviews } from '../../logic/fetch';
+import { getOverallRating } from '../../logic/fetch';
 import { Rate } from 'antd';
 
 export function ProductRating(props) {
@@ -19,8 +19,7 @@ export function ProductRating(props) {
 
   useEffect(() => {
     async function getData() {
-      const rating = await getOverallRating(product);
-      const count = await countProductReviews(product);
+      const { rating, count } = await getOverallRating(product);
       setOverallRating(rating);
       setReviewCount(count);
     };
