@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Rate, Drawer, Skeleton, Space, Button, Form, Row, Col, Input, Divider, Card, Avatar, Table } from 'antd';
+import { Rate, Drawer, Skeleton, Space, Button, Form, Row, Col, Input, Divider, Card, Avatar, Table, Spin } from 'antd';
 
 const customReview = {
   user: {
@@ -11,42 +11,11 @@ const customReview = {
   commentary: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis quo animi blanditiis possimus doloremque. Quos ullam odit, recusandae modi possimus voluptatum. Quas eveniet laudantium consectetur magnam iure ad enim voluptatem.'
 }
 
+// RATE BAR FOR PRODUCT
 export function ProductRating(props) {
   const { product } = props;
   const [overallRating, setOverallRating] = useState(0);
-
-
-
-  return (
-    <>
-      <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginBottom: '-20px' }} onClick={openDrawer} >
-        <Rate disabled allowHalf value={overallRating} />
-      </span>
-      <ReviewsDrawer product={product} />
-    </>
-  )
-}
-
-export async function getOverallRating(productId) {
-  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/rating/${product}`);
-  return res.data;
-}
-
-export async function getProductReviews(productId) {
-  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/id/${product}`);
-  return res.data;
-}
-
-export function ReviewsDrawer(props) {
-  const { product } = props;
-  const [overallRating, setOverallRating] = useState(0);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const [isFormOpen, setFormOpen] = useState(false);
-  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
-
-  useEffect(() => {
-    getOverallRating(product);
-  }, [])
 
   const openDrawer = () => {
     setDrawerOpen(true);
@@ -55,6 +24,69 @@ export function ReviewsDrawer(props) {
   const onDrawerClose = () => {
     setDrawerOpen(false);
   };
+
+  useEffect(() => {
+    async function getData() {
+      const rating = getOverallRating(product);
+      setOverallRating(rating);
+    }
+  }, [])
+
+  return (
+    <>
+      <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginBottom: '-20px' }} onClick={openDrawer} >
+        <Rate disabled allowHalf value={overallRating} />
+      </span>
+      <ReviewsDrawer product={product} isOpen={isDrawerOpen} toClose={onDrawerClose} />
+    </>
+  )
+}
+
+// LOGIC
+export async function getOverallRating(productId) {
+  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/rating/${productId}`);
+  return res.data;
+}
+
+export async function getProductReviews(productId) {
+  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/id/${productId}`);
+  return res.data;
+}
+
+export async function getUserReview(productId) {
+  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/all?product=${productId}`);
+  return res.data;
+}
+
+export async function postProductReview(productId, inputs) {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  };
+  const body = {
+    rating: inputs.review - rating,
+    title: inputs.review - title,
+    commentary: inputs.review - commentary,
+  };
+  const res = await axios.post(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/id/${productId}`, body, config);
+
+}
+
+// DRAWER
+export function ReviewsDrawer(props) {
+  const { product, isOpen, toClose } = props;
+  const [overallRating, setOverallRating] = useState(0);
+  const [isFormOpen, setFormOpen] = useState(false);
+  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
+
+  useEffect(() => {
+    async function getData() {
+      const rating = getOverallRating(product);
+      setOverallRating(rating);
+    }
+  }, [])
 
   const openForm = () => {
     setFormOpen(true);
@@ -66,37 +98,65 @@ export function ReviewsDrawer(props) {
 
   return (
     <Drawer
-        title={
-          <>
-            <span>Reseñas de usuarios</span>
-            <Rate style={{ marginLeft: '20px' }} allowHalf disabled value={overallRating} />
-            {overallRating ? <span className="ant-rate-text"><em>{desc[Math.floor(overallRating) - 1]}</em></span> : ''}
-          </>
-        }
-        width={720}
-        onClose={onDrawerClose}
-        open={isDrawerOpen}
-        bodyStyle={{ paddingBottom: 80 }}
-        closable={false}
-        extra={
-          <Space>
-            <Button onClick={isFormOpen ? onFormClose : openForm} type="primary">{isFormOpen ? 'Cancelar' : 'Publicar reseña'}</Button>
-            <Button onClick={onDrawerClose} type="primary">Cerrar</Button>
-          </Space>
-        }
-      >
-        <ReviewForm open={isFormOpen} />
-        <UserReviews />
-      </Drawer>
+      title={
+        <>
+          <span>Reseñas de usuarios</span>
+          <Rate style={{ marginLeft: '20px' }} allowHalf disabled value={overallRating} />
+          {overallRating ? <span className="ant-rate-text"><em>{desc[Math.floor(overallRating) - 1]}</em></span> : ''}
+        </>
+      }
+      width={720}
+      onClose={toClose}
+      open={isOpen}
+      bodyStyle={{ paddingBottom: 80 }}
+      closable={false}
+      extra={
+        <Space>
+          <Button onClick={isFormOpen ? onFormClose : openForm} type="primary">{isFormOpen ? 'Cancelar' : 'Publicar reseña'}</Button>
+          <Button onClick={toClose} type="primary">Cerrar</Button>
+        </Space>
+      }
+    >
+      <ReviewForm isOpen={isFormOpen} product={product} />
+      <UserReviews product={product} />
+    </Drawer>
   )
 }
 
+// REVIEW FORM
 export function ReviewForm(props) {
-  const { open } = props;
+  const { isOpen, product } = props;
   const [reviewRating, setReviewRating] = useState(3);
+  const [hasReviewed, setUserReview] = useState();
+  const [loading, setLoading] = useState(false);
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
 
-  if (!open) return null;
+  const postReview = async (inputs) => {
+    setLoading(true);
+    setUserReview(true);
+    await postProductReview(product, inputs);
+    const getReview = await getUserReview(product);
+    setLoading(false);
+    setUserReview(getReview.data);
+  }
+
+  if (!isOpen) return null;
+
+  if (loading) return (
+    <Space direction="vertical" style={{ width: '100%' }}>
+      {loading ?
+        <Spin tip="Publicando">
+          <h3>Tus reseñas</h3>
+          <ReviewCard review={hasReviewed} loading={loading} />
+        </Spin>
+        :
+        <>
+          <h3>Tus reseñas</h3>
+          <ReviewCard review={hasReviewed} loading={loading} />
+        </>
+      }
+    </Space>
+  )
 
   return (
     <>
@@ -135,7 +195,9 @@ export function ReviewForm(props) {
   )
 }
 
+// USER REVIEWS
 export function UserReviews(props) {
+  const { product } = props;
   const [userReview, setUserReview] = useState(customReview);
 
   return (
@@ -143,7 +205,7 @@ export function UserReviews(props) {
       <Table
         showHeader={false}
       />
-      <ReviewCard review={userReview} />
+      <ReviewCard review={userReview} loading={ } />
       <ReviewCard review={userReview} />
       <ReviewCard review={userReview} />
       <ReviewCard review={userReview} />
@@ -156,10 +218,10 @@ export function UserReviews(props) {
   )
 }
 
+// USER REVIEW
 export function ReviewCard(props) {
-  const { review } = props;
+  const { review, loading } = props;
   const { user, rating, title, commentary } = review;
-  const loading = false;
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
 
   return (
