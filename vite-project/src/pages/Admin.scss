@@ -36,3 +36,15 @@
   justify-content: center;
 }
 
+.handle-actions-container{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 1rem;
+  div{
+    border: 1px solid gray;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+}

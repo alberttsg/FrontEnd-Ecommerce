@@ -5,7 +5,7 @@ import { Profile } from '../pages/Profile';
 import Register from '../pages/register/Register';
 import Cart from '../pages/cart/Cart'
 import { Admin } from '../pages/Admin'
-
+import AdminUser from '../pages/admin/AdminUser';
 
 const AppRoutes = () => {
     return useRoutes (
@@ -34,7 +34,11 @@ const AppRoutes = () => {
               {
                 element: <Admin/>,
                 path: '/admin'
-              }
+              },
+              {
+                element: <AdminUser/>,
+                path: '/admin/user'
+              },
         ]
         );
 

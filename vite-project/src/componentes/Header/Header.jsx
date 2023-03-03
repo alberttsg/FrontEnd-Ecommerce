@@ -29,8 +29,13 @@ const Header = () => {
   const handleLogoutClick = () => {
     localStorage.removeItem('token');
     setCartCount(0);
-    localStorage.removeItem('order')
-    navigate('/');
+    localStorage.removeItem('order');
+    setShowUserDropdown(false);
+    navigate('/login');
+  }
+  const handleProfile = () => {
+    setShowUserDropdown(false);
+    navigate('/profile');
   }
   return (
     <div className="header-rows-container">
@@ -48,7 +53,7 @@ const Header = () => {
                 {isLoggedIn ? (
                   <>
                     <Button className={'logout-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
-                    <Button className={'profile-button-class'} onClick={() => navigate('/profile')}>Ir al perfil</Button>
+                    <Button className={'profile-button-class'} onClick={handleProfile}>Ir al perfil</Button>
                   </>
                 ) : (
                   <>

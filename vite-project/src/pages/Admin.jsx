@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import axios from 'axios'
 import './Admin.scss'
 import { Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export const Admin = () => {
-
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const token = JSON.parse(localStorage.getItem('token'))
@@ -57,7 +58,11 @@ const deleteProduct = async(_id) => {
 
   return (
     <div id='bodyProducts'>
+    <div className='handle-actions-container'>
+
     <div>Crear Producto</div>
+    <div onClick={()=>navigate('/admin/user')}>Administrar Usuarios</div>
+    </div>
     <Modal title="Producto borrado con exito" open={isModalOpen}>
       </Modal>
     <div id='divProducts'>
