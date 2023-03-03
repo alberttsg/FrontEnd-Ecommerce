@@ -1,0 +1,66 @@
+.admin-user-container{
+padding: 1rem;
+margin: 1rem;
+display: flex;
+// flex-direction: column;
+flex-wrap: wrap;
+height: 100%;
+}
+.user-card-container{
+    padding: 1rem;
+    border: 3px solid green;
+    margin: 1rem;
+    width: 20%;
+    height: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around ;
+    align-items: flex-start;
+    flex-direction: column;
+    text-transform: capitalize;
+    
+    h3{
+        text-transform: capitalize;
+        padding: 0.3rem;
+    }
+    h4{
+        padding: 0.3rem;
+
+    }
+    h5{
+        padding: 0.3rem;
+
+    }
+}
+.info-container-user{
+    height: 70%;
+}
+.action-container-user{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 0.4rem;
+    font-size: 25px;
+    cursor: pointer;
+    height: 30%;
+}
+.btn-container{
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    align-items: center;
+    flex-direction: row;
+    padding: 1rem;
+    margin: 1rem;
+    
+    button{
+        width: 25%;
+        padding: 0.3rem;
+        border-radius: 1.5rem;
+        background-color: #61abff51;
+        border: 2px solid black;
+    }
+}
+// footer{
+//     display: none;
+// }

@@ -6,7 +6,8 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 const initialState = {
   token: token ? token : null,
-  user: null,
+  user: {},
+  users:[]
 };
 
 export const UserContext = createContext(initialState);
@@ -39,6 +40,63 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const getUsers = async () =>{
+    const token = JSON.parse(localStorage.getItem('token'));
+    const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/users/all',{
+      headers: {
+        Authorization: token
+      }
+    });
+    dispatch({
+      type: 'GET_USERS',
+      payload: res.data,
+    });
+    return res;
+  }
+
+  const getUserById = async (id) =>{
+    const token = JSON.parse(localStorage.getItem('token'));
+    const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,{
+      headers: {
+        Authorization: token
+      }
+    });
+    dispatch({
+      type: 'GET_USER_BY_ID',
+      payload: res.data,
+    });
+    return res;
+  }
+
+  const editUser = async (user,id) =>{
+    const token = JSON.parse(localStorage.getItem('token'));
+    const res = await axios.put (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,user,{
+      headers: {
+        Authorization: token
+      }
+    });
+    dispatch({
+      type: 'EDIT_USER',
+      payload: res.data,
+    });
+    getUsers();
+    return res;
+  }
+
+  const deleteUser = async (id) =>{
+    const token = JSON.parse(localStorage.getItem('token'));
+    const res = await axios.delete (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/${id}`,{
+      headers: {
+        Authorization: token
+      }
+    });
+    dispatch({
+      type: 'DELETE_USER',
+      payload: res.data,
+    });
+    getUsers();
+    return console.log(res);
+  }
   return (
     <UserContext.Provider
       value={{
@@ -46,6 +104,11 @@ export const UserProvider = ({ children }) => {
         user: state.user,
         login,
         register,
+        getUsers,
+        users: state.users,
+        getUserById,
+        editUser,
+        deleteUser
       }}
     >
       {children}
