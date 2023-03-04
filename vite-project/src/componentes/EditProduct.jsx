@@ -10,7 +10,7 @@ const [form]= Form.useForm();
 
 
     useEffect(()=>{
-        form.setFieldsValue(user);
+        form.setFieldsValue(user)
     },[user])
 
   const onFinish = (values) => {
@@ -19,7 +19,7 @@ const [form]= Form.useForm();
     setVisible(false);
   };
   return (
-    <Modal title='Edit User'  open={visible} onCancel={()=>setVisible(false)}  footer={[]}>
+    <Modal form={form}  title='Edit User'  open={visible} onCancel={()=>setVisible(false)}  footer={[]}>
       <Form form={form} onFinish={onFinish} >
         <Form.Item label='User Name' name='username'>
           <Input placeholder='User name' />
@@ -31,9 +31,9 @@ const [form]= Form.useForm();
         <Form.Item label='role' name='role'>
           <Input placeholder='role' />
         </Form.Item>
-        <Form.Item label='password' name='password'>
+        {/* <Form.Item label='password' name='password'>
           <Input.Password placeholder='Nueva Contraseña' />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <Button type='primary' htmlType='submit'>
             Enviar
