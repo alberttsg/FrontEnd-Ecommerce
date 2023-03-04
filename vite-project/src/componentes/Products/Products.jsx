@@ -3,7 +3,6 @@ import './Products.scss';
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal } from 'antd';
 import { ProductRating } from "../Reviews/ProductRating";
 import { UserContext } from '../../context/UserContext/UserState';
@@ -58,7 +57,6 @@ export function Products() {
   return (<>
     <div className="container" >
       <div className="container-products">
-      <div className="container-products">
         {currentPageProducts &&
           currentPageProducts.map(product => {
 
@@ -91,11 +89,6 @@ export function Products() {
                 />
               </Card>
             </div>
-                    </div>
-                  }
-                />
-              </Card>
-            </div>
             )
           })
         }
@@ -104,18 +97,6 @@ export function Products() {
           <h1>{modalProduct.name}.</h1>
           <img src={modalProduct.image} alt={modalProduct.name} />
           <p>Brand: {modalProduct.brand}</p>
-          })
-        }
-
-        <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-          <h1>{modalProduct.name}.</h1>
-          <img src={modalProduct.image} alt={modalProduct.name} />
-          <p>Brand: {modalProduct.brand}</p>
-
-          <p className="price">Price: {modalProduct.price}€</p>
-        </Modal>
-
-      </div>
 
           <p className="price">Price: {modalProduct.price}€</p>
         </Modal>
@@ -123,7 +104,6 @@ export function Products() {
       </div>
 
     </div>
-  </>
   </>
   )
 }
