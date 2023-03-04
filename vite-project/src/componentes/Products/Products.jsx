@@ -73,7 +73,7 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" onClick={()=>{showModal(product)}}/>,
+                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}}/>,
                     ]}
                     >
                     <Meta
@@ -81,7 +81,7 @@ export function Products() {
                     description={
                       <div style={{display: 'flex', flexFlow: 'column'}} >
                       <ProductRating product={product._id} />
-                      <p>{product.price + '€'}</p>
+                      <p>{product.price + '€'}</p>``
                       </div>
                     }
                     />
