@@ -5,6 +5,12 @@ display: flex;
 // flex-direction: column;
 flex-wrap: wrap;
 height: 100%;
+p{
+    text-align: center;
+    width: 100%;
+    padding-bottom: 1rem;
+    word-spacing: 1rem;
+}
 }
 .user-card-container{
     padding: 1rem;

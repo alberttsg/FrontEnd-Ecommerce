@@ -48,8 +48,8 @@ const AdminUser = () => {
                 avatar={<Avatar src={ user.avatar ||'https://upload.wikimedia.org/wikipedia/commons/8/87/Avatar_poe84it.png' } alt="Avatar" />}
                 title={user.name}
                 description={user.email}
-              />
-              <p>Rol: {user.role}</p>
+                />
+                <p>Rol: {''} <b>{user.role}</b></p>
 
               <div className='action-container-user'>
                 <DeleteTwoTone onClick={() => handleDeleteUser(user._id)} />
