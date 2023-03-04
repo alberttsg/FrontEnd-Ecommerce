@@ -5,6 +5,7 @@ import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal, Dropdown, Space, Typography } from 'antd';
 import { useLocation } from 'react-router-dom';
+import ProductRaiting  from '../Reviews/ProductRating.jsx'
 
 const items = ['hola','hola2','hola3'];
 
@@ -50,11 +51,6 @@ export function Products() {
         console.log(Obj)
         
     },[products])
-
-
-
-  
-
   return (<>
     <div className="container" >
     <Dropdown
@@ -98,7 +94,7 @@ export function Products() {
                     title={product.name} 
                     description={
                       <div style={{display: 'flex', flexFlow: 'column'}} >
-                      <ProductRating product={product._id} />
+                      <ProductRaiting product={product._id} />
                       <p>{product.price + '€'}</p>``
                       </div>
                     }

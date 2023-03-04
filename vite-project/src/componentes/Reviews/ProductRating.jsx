@@ -3,7 +3,7 @@ import { ReviewsDrawer } from './ReviewsDrawer';
 import { getOverallRating, countProductReviews } from '../../logic/fetch';
 import { Rate } from 'antd';
 
-export function ProductRating(props) {
+export default function ProductRating(props) {
   const { product } = props;
   const [overallRating, setOverallRating] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
