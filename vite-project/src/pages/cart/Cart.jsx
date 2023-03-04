@@ -23,7 +23,7 @@ function Cart(){
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           
           {
-            true ? <CartEmpty/> :
+            cart.length === 0 ? <CartEmpty/> :
             cart.map((e,i) =>
             (
               <CartArticles 
