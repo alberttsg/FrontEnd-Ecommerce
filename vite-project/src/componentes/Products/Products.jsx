@@ -7,6 +7,7 @@ import { Card, Modal } from 'antd';
 import { ProductRating } from "../Reviews/ProductRating";
 import { CartGlobalContext } from "../../context/cartContext/CartGlobalState";
 
+
 export function Products() {
   const { Meta } = Card;
   const { addCart } = useContext(CartGlobalContext);
@@ -46,9 +47,10 @@ export function Products() {
     }
     getProducts()
   }, [])
-
+ 
   function onClickCartHandler(addProduct) {
     addCart(addProduct._id, 1);
+    
   }
 
 
@@ -73,7 +75,7 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}}/>,
+                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />,
                     ]}
                     >
                     <Meta

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 
 
-const Header = () => {
+const Header = (carrito={cartCount}) => {
   const navigate = useNavigate();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const token = localStorage.getItem('token');
