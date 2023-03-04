@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 
 
-const Header = () => {
+const Header = (carrito={cartCount}) => {
   const navigate = useNavigate();
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const token = localStorage.getItem('token');
@@ -21,7 +21,7 @@ const Header = () => {
   }
 
 
- 
+
   const handleHeartClick = () => {
     setCartCount(cartCount + 1);
   }
@@ -37,13 +37,20 @@ const Header = () => {
     setShowUserDropdown(false);
     navigate('/profile');
   }
+
+  const addProduct = () => {
+    setCartCount(cartCount + 1);
+    setAuth(!auth);
+    console.log(auth);
+  }
+
   return (
     <div className="header-rows-container">
       <div className='header-container'>
         <div className="left-side" onClick={() => navigate('/')}><img src={image} alt="logo" className='logo-class' /></div>
         <InputHeader />
         <div className="icons-container">
-          <HeaderButton handleClick={() => console.log('soy carritoooooo')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
+          <HeaderButton handleClick={() => navigate('/cart')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
           <HeaderButton handleClick={handleHeartClick} icon={<HeartOutlined style={{ fontSize: '30px', color: 'white' }} />} />
 
           <div className='user-button' onClick={handleUserButtonClick}>
@@ -64,8 +71,8 @@ const Header = () => {
               </div>
             )}
           </div>
-    </div>
-    </div>
+        </div>
+      </div>
     </div>
   );
 };

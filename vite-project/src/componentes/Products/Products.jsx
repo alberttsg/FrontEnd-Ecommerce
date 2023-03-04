@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Products.scss';
 import { useEffect, useState } from "react";
 import axios from 'axios'
@@ -73,7 +73,7 @@ export function Products() {
   </Dropdown>
 
     <div className="container-products">
-        {currentPageProducts &&
+      {currentPageProducts &&
         currentPageProducts.map(product => {
           
             return(<div key={product._id}>
@@ -91,25 +91,35 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
+<<<<<<< HEAD
                     <ShoppingCartOutlined key="cart" />,
                        ]}
+=======
+                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />,
+                    ]}
+>>>>>>> 86a11ebfddef6a9e6236a56e779f49310adcad16
                     >
                     <Meta
                     title={product.name} 
-                    description={product.price + '€'}
+                    description={
+                      <div style={{display: 'flex', flexFlow: 'column'}} >
+                      <ProductRating product={product._id} />
+                      <p>{product.price + '€'}</p>``
+                      </div>
+                    }
                     />
                     </Card>
-                   </div>
+                  </div>
             )
-        })
+          })
             } 
                     
-                     <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-                     <h1>{modalProduct.name}.</h1>
-                     <img src={modalProduct.image} alt={modalProduct.name} />
-                     <p>Brand: {modalProduct.brand}</p>
+                    <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
+                    <h1>{modalProduct.name}.</h1>
+                    <img src={modalProduct.image} alt={modalProduct.name} />
+                    <p>Brand: {modalProduct.brand}</p>
 
-                     <p className="price">Price: {modalProduct.price}€</p>
+                    <p className="price">Price: {modalProduct.price}€</p>
                     </Modal>
        
     </div>
@@ -117,4 +127,4 @@ export function Products() {
     </div>
         </>
   )
-  }
+}
