@@ -6,6 +6,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 
 const initialState = {
   token: token ? token : null,
+  userInfo: {},
   user: {},
   users: []
 };
@@ -17,20 +18,26 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/login', user);
+    const userInfo = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, {
+      headers: {
+        Authorization: res.data.token
+      }
+    });
+    console.log(userInfo)
     dispatch({
       type: "LOGIN-REGISTER",
-      payload: res.data.token,
+      payload: res.data,
     });
     if (res.data) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
     }
   };
-
-  const register = async (user) => {
-    const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/register', user);
+  
+  const register = async (user) =>{
+    const res = await axios.post ('https://backend-ecommerce-production-ce12.up.railway.app/register', user);
     dispatch({
       type: 'LOGIN-REGISTER',
-      payload: res.data.token,
+      payload: res.data,
     });
     if (res.data) {
       localStorage.setItem("token", JSON.stringify(res.data.token));
@@ -111,6 +118,7 @@ export const UserProvider = ({ children }) => {
     getUsers();
     return console.log(res);
   }
+
   return (
     <UserContext.Provider
       value={{
