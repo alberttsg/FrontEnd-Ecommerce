@@ -1,4 +1,4 @@
-.container{
+.containerCardInfo{
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -11,4 +11,9 @@
 
 .ant-card-body{
   padding: 0%;
+  p{
+    display:flex;
+    width: 480px;
+    justify-content: center;
+  }
 }
