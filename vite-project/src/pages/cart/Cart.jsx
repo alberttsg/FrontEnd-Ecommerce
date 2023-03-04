@@ -1,5 +1,6 @@
 import CartArticles from '../../componentes/CartArticles/CartArticles'
 import CartCheckout from '../../componentes/CartCheckout/CartCheckout'
+import CartEmpty from '../../componentes/CartEmpty/CartEmpty'
 import { useContext, useEffect } from 'react'
 import { Card, Space } from 'antd'
 import { CartGlobalContext } from '../../context/cartContext/CartGlobalState'
@@ -13,15 +14,17 @@ function Cart(){
     getCart();
   },[])
 
-  console.log(cart);
+  console.log(cart.length,'this is cart');
   console.log(cartTotal)
 
   return(
     <div className='body-class-container'>
      {  
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
+          
           {
-            cart.map((e,i)=>
+            true ? <CartEmpty/> :
+            cart.map((e,i) =>
             (
               <CartArticles 
                 key={'art'+i}

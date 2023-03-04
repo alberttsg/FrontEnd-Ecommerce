@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 import { PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined, SecurityScanTwoTone } from '@ant-design/icons'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { CartGlobalContext } from '../../context/cartContext/CartGlobalState'
 import './CartArticles.scss'
 
@@ -20,7 +20,7 @@ function CartArticles(props) {
   }
 
   return (
-
+    
     <Card size="small" style={{ width: 800, height: 120 }}>
       <div className='containerCardInfo'>
         <img src={productImg} height={92} width={92} alt='product img' />

@@ -40,7 +40,7 @@ export function Products() {
 
   useEffect(() => {
     async function getProducts() {
-      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
+      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all/1')
       const data = res.data
       setProducts(data)
     }
@@ -73,7 +73,7 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" />,
+                    <ShoppingCartOutlined key="cart" onClick={()=>{showModal(product)}}/>,
                     ]}
                     >
                     <Meta
