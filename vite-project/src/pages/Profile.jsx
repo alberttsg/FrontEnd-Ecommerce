@@ -25,7 +25,7 @@ export const Profile = () => {
             const getUser = async () => {
                 const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, axiosConfig)
                 if (res.data) {
-                    const { username, email, role, ava } = res.data
+                    const { username, email, role, avatar } = res.data
                 setUserData({username, email, role, avatar})
                 }
             }
