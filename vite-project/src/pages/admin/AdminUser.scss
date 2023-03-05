@@ -1,6 +1,7 @@
 .admin-user-container{
-padding: 1rem;
-margin: 1rem;
+    width: 100%;
+// padding: 1rem;
+// margin: 1rem;
 display: flex;
 // flex-direction: column;
 flex-wrap: wrap;
@@ -55,7 +56,8 @@ p{
     justify-content: space-evenly;
     width: 100%;
     align-items: center;
-    padding: 1rem;
+    padding-top: 1rem  ;
+    padding-bottom: 1rem;
     flex-direction: row;
     // margin: 1rem;
     background-color: #9dd2a03e;
