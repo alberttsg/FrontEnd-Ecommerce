@@ -1,21 +1,28 @@
 import React, { useContext } from "react";
 import './Products.scss';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
-import { ShoppingCartOutlined, InfoCircleOutlined} from '@ant-design/icons';
+import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal } from 'antd';
 import { ProductRating } from "../Reviews/ProductRating";
-import { CartGlobalContext } from "../../context/cartContext/CartGlobalState";
+import { UserContext } from '../../context/UserContext/UserState';
 
 export function Products() {
   const { Meta } = Card;
-  const { addCart } = useContext(CartGlobalContext);
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productsPerPage, setProductsPerPage] = useState(10)
-  const [modalProduct, setModalProduct] = useState([])
+  const [productsPerPage, setProductsPerPage] = useState(10);
+  const [modalProduct, setModalProduct] = useState([]);
+  const currentPageProducts = products.slice(0, productsPerPage);
+  const { getUserInfo } = useContext(UserContext);
+  const { addCart } = useContext(CartGlobalContext);
 
-  const currentPageProducts = products.slice(0, productsPerPage)
+  useEffect(() => {
+    async function getData() {
+      await getUserInfo();
+    };
+    getData();
+  }, [])
 
   const showModal = (product) => {
     setIsModalOpen(true);
@@ -51,57 +58,55 @@ export function Products() {
     addCart(addProduct._id, 1);
   }
 
-
   return (<>
-    <div className="container">
-    <div className="container-products">
-      {currentPageProducts &&
-        currentPageProducts.map(product => {
-          
-            return(<div key={product._id}>
-                <Card 
-                    style={{
-                    width: 300,
-                    
-                    }}
-                    cover={
-                    <img 
-                        className="img-products"
-                        alt="img"
-                        src={product.image}
-                    />
-                    }
-                    actions={[
-                    <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}}/>,
-                    ]}
-                    >
-                    <Meta
-                    title={product.name} 
-                    description={
-                      <div style={{display: 'flex', flexFlow: 'column'}} >
-                      <ProductRating product={product._id} />
-                      <p>{product.price + '€'}</p>``
-                      </div>
-                    }
-                    />
-                    </Card>
-                  </div>
+    <div className="container" >
+      <div className="container-products">
+        {currentPageProducts &&
+          currentPageProducts.map(product => {
+
+            return (<div key={product._id}>
+              <Card
+                style={{
+                  width: 300,
+
+                }}
+                cover={
+                  <img
+                    className="img-products"
+                    alt="img"
+                    src={product.image}
+                  />
+                }
+                actions={[
+                  <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
+                  <ShoppingCartOutlined key="cart" onClick={() => { onClickCartHandler(product) }}/>,
+                ]}
+              >
+                <Meta
+                  title={product.name}
+                  description={
+                    <div style={{ display: 'flex', flexFlow: 'column' }} >
+                      <ProductRating product={product} />
+                      <p>{product.price + '€'}</p>
+                    </div>
+                  }
+                />
+              </Card>
+            </div>
             )
           })
-            } 
-                    
-                    <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-                    <h1>{modalProduct.name}.</h1>
-                    <img src={modalProduct.image} alt={modalProduct.name} />
-                    <p>Brand: {modalProduct.brand}</p>
+        }
 
-                    <p className="price">Price: {modalProduct.price}€</p>
-                    </Modal>
-       
+        <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
+          <h1>{modalProduct.name}.</h1>
+          <img src={modalProduct.image} alt={modalProduct.name} />
+          <p>Brand: {modalProduct.brand}</p>
+
+          <p className="price">Price: {modalProduct.price}€</p>
+        </Modal>
+
+      </div>
     </div>
-        
-    </div>
-        </>
+  </>
   )
 }

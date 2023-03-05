@@ -1,41 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ReviewCard } from './ReviewCard';
-import { postProductReview, getUserReview } from '../../logic/fetch';
 import { Space, Spin, Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
+import axios from 'axios';
+import { UserContext } from '../../context/UserContext/UserState';
+import { DrawerContext } from './ReviewsDrawer';
 
 export function ReviewForm(props) {
-  const { isOpen, product } = props;
+  const { isOpen, product, userReview, setUserReview } = props;
+  const { userInfo } = useContext(UserContext);
+  const { desc, review, setReview } = useContext(DrawerContext);
   const [reviewRating, setReviewRating] = useState(3);
-  const [hasReviewed, setUserReview] = useState();
   const [loading, setLoading] = useState(false);
-  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
-
-  useEffect(() => {
-    async function getData() {
-      const getReview = await getUserReview(product);
-      setUserReview(getReview.data);
-    };
-    getData();
-  }, [])
 
   const postReview = async (inputs) => {
     setLoading(true);
-    await postProductReview(product, inputs);
-    const getReview = await getUserReview(product);
-    setUserReview(getReview.data);
+    const token = JSON.parse(localStorage.getItem('token'));
+    const config = { headers: { 'Authorization': token } };
+    const body = {
+      rating: inputs['review-rating'],
+      title: inputs['review-title'],
+      commentary: inputs['review-commentary'],
+    }
+    const res = await axios.post(`https://backend-ecommerce-production-ce12.up.railway.app/products/reviews/${product._id}`, body, config);
+    const review = res.data.reviews.find(i => i.user._id === userInfo._id);
+    if (review) { setUserReview(review) }
+    else { setUserReview(null) }
     setLoading(false);
   }
 
-  if (!isOpen) return null;
-
-  if (loading) return (
+  if (review) return (
     <Space direction="vertical" style={{ width: '100%' }}>
-        <Spin tip="Publicando">
-          <h3>Tus reseñas</h3>
-          <ReviewCard review={hasReviewed} loading={loading} />
-        </Spin>
+      <Spin tip="Publicando" spinning={loading} >
+        <h3>Tus reseñas</h3>
+        <ReviewCard review={userReview} loading={loading} />
+      </Spin>
     </Space>
   )
+
+  if (!isOpen) return null;
 
   return (
     <>
