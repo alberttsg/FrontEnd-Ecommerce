@@ -55,8 +55,8 @@ const Header = () => {
               <div className='user-check-class'>
                 {isLoggedIn ? (
                   <>
-                    <Button className={'logout-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
-                    <Button className={'profile-button-class'} onClick={handleProfile}>Ir al perfil</Button>
+                    <Button className={'login-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
+                    <Button className={'login-button-class'} onClick={handleProfile}>Ir al perfil</Button>
                   </>
                 ) : (
                   <>

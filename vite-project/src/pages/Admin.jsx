@@ -13,7 +13,6 @@ export const Admin = () => {
   const [ btnUpdate, setBtnUpdate ] = useState('Edit')
   const [ inputDisabled, setinputDisabled ] = useState(true)
   const [ productCreated, setproductCreated ] = useState()
-  const [ productUpdate, setProductUpdate ] = useState({})
   const [form] = Form.useForm()
   const [formularioVisible, setFormularioVisible] = useState(false);
 
@@ -80,7 +79,6 @@ const deleteProduct = async(_id) => {
   };
 
   const updateProduct = async (values) => {
-    console.log(values)
 
     if(btnUpdate == 'Edit'){
       setBtnUpdate('Update')
@@ -90,8 +88,6 @@ const deleteProduct = async(_id) => {
     } else {
       setBtnUpdate('Edit')
       setinputDisabled(true)
-
-      console.log(values)
     }
 
     try{
@@ -278,7 +274,6 @@ const deleteProduct = async(_id) => {
               </div>
               </Form>
             </div>
-              
           ))
         }
       </div>

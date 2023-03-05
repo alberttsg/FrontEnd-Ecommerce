@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { Card, Avatar } from "antd";
 
 const AdminUser = () => {
+  const [showFooter, setShowFooter] = useState(false);
+
   const navigate = useNavigate();
   const { getUsers, users, getUserById, deleteUser } = useContext(UserContext);
 
@@ -28,7 +30,7 @@ const AdminUser = () => {
   };
   return (
     <div className='container-users'>
-      <div className='btn-container'>
+      <div className='btn-container-admin-user'>
         <button onClick={() => navigate("/")}>Home</button>
         <button onClick={() => navigate("/admin")}>
           Administrador de productos
@@ -39,13 +41,12 @@ const AdminUser = () => {
         {users.map((user) => {
           return (
             <Card
-            //   className='user-card-container'
               key={user.id}
               title={user.name}
               style={{ width: 300 }}
             >
               <Card.Meta
-                avatar={<Avatar src={'https://w7.pngwing.com/pngs/499/529/png-transparent-computer-icons-woman-avatar-woman-people-woman-user.png' } alt="Avatar" />}
+                avatar={<Avatar src={ user.avatar || 'https://w7.pngwing.com/pngs/499/529/png-transparent-computer-icons-woman-avatar-woman-people-woman-user.png' } alt="Avatar" />}
                 title={user.username}
                 description={user.email}
                 />

@@ -9,8 +9,9 @@
   // margin-top: 80px;
   // align-items: center;
   form{
-    width: 500px;
-    background-color: white;
+    width: 450px;
+    height: 60vh;
+    background-color: rgb(74, 210, 163);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -26,15 +27,18 @@
         flex-wrap: wrap;
         width: 100%;
       }
+      a{
+        padding: 5px;
+      }
     }
   }
 }
 .btn-container{
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: row;
-  margin-right: 10rem;
+  // margin-right: 10rem;
   width: 100%;
 }
 .btn-container button{
