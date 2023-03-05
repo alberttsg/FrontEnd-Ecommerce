@@ -80,7 +80,6 @@ const deleteProduct = async(_id) => {
   };
 
   const updateProduct = async (values) => {
-    console.log(values)
 
     if(btnUpdate == 'Edit'){
       setBtnUpdate('Update')
@@ -90,8 +89,6 @@ const deleteProduct = async(_id) => {
     } else {
       setBtnUpdate('Edit')
       setinputDisabled(true)
-
-      console.log(values)
     }
 
     try{
@@ -278,7 +275,6 @@ const deleteProduct = async(_id) => {
               </div>
               </Form>
             </div>
-              
           ))
         }
       </div>
