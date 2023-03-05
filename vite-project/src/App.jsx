@@ -7,14 +7,12 @@ import { CartGlobalProvider } from './context/cartContext/CartGlobalState'
 import './App.scss'
 
 function App() {
-  const actualizarCarrito = (cantidad) => {
-    setCarrito(carrito + cantidad);
-  };
+ 
   return (
    <BrowserRouter>
       <UserProvider>
         <CartGlobalProvider>
-            <Header />
+            <Header/>
             <AppRoutes />
             <Footer/>
         </CartGlobalProvider>
