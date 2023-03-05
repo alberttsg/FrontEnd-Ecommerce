@@ -1,18 +1,16 @@
 
-
-
-
 .footer {
   background-color: #3a3939;
   color: rgb(254, 254, 254);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7.5rem;
+  height: 23%;
   width: 100%;
   // left: 0;
   bottom: 0;
-  position: fixed;
+  position:fixed;
+  flex-direction: row;
 
 
 
@@ -29,7 +27,7 @@
     
   }
 
-  .footer-content {
+  .footer-content-inside {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,6 +39,7 @@
       align-items: flex-start;
       height: 90px;
       width: 195px;
+      text-align: start;
       .social-networks {
         margin-left: -1.4rem;
         li{
@@ -100,3 +99,26 @@
 }
 
 
+.crazy-footer.expanded {
+  height: 200px; /* altura del contenido expandido */
+}
+
+.footer-content {
+  display: none;
+}
+
+.crazy-footer.expanded .footer-content {
+  display: block;
+}
+.expand-button {
+  width: 100%;
+  padding: 10px;
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(61,67,68,1) 0%, rgba(35,44,47,1) 100%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-top: 2px solid #6b6666;
+  position: fixed;
+  bottom: 0;
+}

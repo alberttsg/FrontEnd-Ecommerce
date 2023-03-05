@@ -98,6 +98,26 @@ export function Products() {
                 actions={[
                   <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
 
+    <div className="container-products">
+      {currentPageProducts &&
+        currentPageProducts.map(product => {
+            const img = product.image
+            console.log(img)
+            return(<div key={product._id}>
+                <Card 
+                    style={{
+                    width: 300,
+                    
+                    }}
+                    cover={
+                    <img 
+                        className="img-products"
+                        alt="img"
+                        src={img? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
+                    />
+                    }
+                    actions={[
+                    <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
 
                   <ShoppingCartOutlined key="cart" onClick={() => { onClickCartHandler(product) }} />
 

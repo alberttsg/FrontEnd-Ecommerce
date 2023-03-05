@@ -44,3 +44,17 @@
 .ant-avatar{
     margin-bottom: 3rem;
 }
+
+.admin {
+    width: 60px;
+    height: 25px;
+    cursor: pointer;
+    background-color: rgb(57, 162, 125);
+    border: 1px solid rgb(74, 210, 163) ;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+
+.admin:hover{
+    scale: 1.1;
+}
