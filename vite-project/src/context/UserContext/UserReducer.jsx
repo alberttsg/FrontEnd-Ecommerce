@@ -3,7 +3,7 @@ const users = (state, action) => {
     case "LOGIN-REGISTER":
       return {
         ...state,
-        token: action.payload.token,
+        token: action.payload,
       };
     case "GET_USERS":
       return {
@@ -27,11 +27,11 @@ const users = (state, action) => {
           return user;
         }),
       };
-      case "DELETE_USER":
-        return {
-          ...state,
-          users: state.users.filter(user=> user._id != action.payload._id) 
-        };
+    case "DELETE_USER":
+      return {
+        ...state,
+        users: state.users.filter(user => user._id != action.payload._id)
+      };
     default:
       return state;
   }

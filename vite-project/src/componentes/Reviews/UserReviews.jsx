@@ -1,35 +1,23 @@
-import { useEffect, useState } from 'react';
 import { ReviewCard } from './ReviewCard';
-import { Space, Table } from 'antd';
-
-const customReview = {
-  user: {
-    name: 'Pepe el enfadao',
-    avatar: 'https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png'
-  },
-  title: 'Este producto es una mierda',
-  rating: 2,
-  commentary: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis quo animi blanditiis possimus doloremque. Quos ullam odit, recusandae modi possimus voluptatum. Quas eveniet laudantium consectetur magnam iure ad enim voluptatem.'
-}
+import { Space, Button } from 'antd';
+import { useEffect, useState } from 'react';
+import { getNonUserReviews } from './reviewFetch';
 
 export function UserReviews(props) {
-  const { product } = props;
-  const [userReview, setUserReview] = useState(customReview);
+  const { product, user } = props;
+  const [reviews, setReviews] = useState(product.reviews);
+
+  useEffect(() => {
+    getNonUserReviews(product, user, setReviews);
+  }, [user, product])
+
+  if (reviews.length === 0) return <h3 style={{fontWeight: 'lighter', marginTop: '20px', color: 'grey'}} ><em>No hay reseñas.</em></h3>
 
   return (
     <Space direction='vertical' style={{ display: 'flex' }} >
-      <Table
-        showHeader={false}
-      />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
-      <ReviewCard review={userReview} />
+      {reviews.map((item, index) =>
+        <ReviewCard review={item} key={index} loading={false} />
+      )}
     </Space>
   )
 }

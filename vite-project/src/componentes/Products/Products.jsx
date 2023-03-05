@@ -1,72 +1,102 @@
-import React, { useContext } from "react";
 import './Products.scss';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Card, Modal, Dropdown, Space, Typography } from 'antd';
+import { Card, Modal, Dropdown, Space, Typography, Button } from 'antd';
 import { useLocation } from 'react-router-dom';
-import ProductRaiting  from '../Reviews/ProductRating.jsx'
+import { ProductRating } from '../Reviews/ProductRating.jsx'
+import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
+const items = ['hola', 'hola2', 'hola3'];
 
-const items = ['hola','hola2','hola3'];
+async function getProducts(callback) {
+  const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
+  const data = res.data
+  callback(data)
+}
 
 export function Products() {
-    const { Meta } = Card;
-    const [products, setProducts] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [productsPerPage, setProductsPerPage] = useState(10)
-    const [modalProduct, setModalProduct] = useState([]) 
-    const currentPageProducts = products.slice(0, productsPerPage)
-    let location = useLocation();
+  const { Meta } = Card;
+  const [products, setProducts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productsPerPage, setProductsPerPage] = useState(10)
+  const [modalProduct, setModalProduct] = useState([])
+  const currentPageProducts = products.slice(0, productsPerPage)
+  let location = useLocation();
 
-    const showModal = (product) => {
-      setIsModalOpen(true);
-      setModalProduct(product)
-    };
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };  
-    const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop +1 >= document.documentElement.scrollHeight){
-        setProductsPerPage((prev)=> prev +10)
-      }
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [drawerProduct, setDrawerProduct] = useState();
+
+  const openDrawer = (product) => {
+    setDrawerProduct(product);
+    setDrawerOpen(true);
+  };
+  const onDrawerClose = () => {
+    setDrawerOpen(false);
+    setDrawerProduct();
+  };
+  const showModal = (product) => {
+    setIsModalOpen(true);
+    setModalProduct(product)
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setProductsPerPage((prev) => prev + 10)
     }
-    useEffect(() => {
-        async function getProducts (){
-            const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
-            const data = res.data
-            setProducts(data)
-        }   
-      getProducts()  
-    }, [])
-    useEffect(()=>{
-        window.addEventListener('scroll',handleScroll)
-        console.log(location.pathname)
-        const productCategoryUnclean = products.map(product => product.category)
-        const productCategoryObj = new Set(productCategoryUnclean)
-        const productCategory = [...productCategoryObj]
-        const Obj = Object.assign({key:{}},{productCategory})  
-        console.log(Obj)
-        
-    },[products])
+  }
+  useEffect(() => {
+    getProducts(setProducts);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    console.log(location.pathname)
+    const productCategoryUnclean = products.map(product => product.category)
+    const productCategoryObj = new Set(productCategoryUnclean)
+    const productCategory = [...productCategoryObj]
+    const Obj = Object.assign({ key: {} }, { productCategory })
+    console.log(Obj)
+  }, [products])
   return (<>
     <div className="container" >
-    <Dropdown
-    menu={{
-      items,
-      selectable: true,
-      defaultSelectedKeys: ['3'],
-    }}
-  >
-    <Typography.Link>
-      <Space>
-        Fiter
-        <DownOutlined />
-      </Space>
-    </Typography.Link>
-  </Dropdown>
+      <Dropdown
+        menu={{
+          items,
+          selectable: true,
+          defaultSelectedKeys: ['3'],
+        }}
+      >
+        <Typography.Link>
+          <Space>
+            Filtro
+            <DownOutlined />
+          </Space>
+        </Typography.Link>
+      </Dropdown>
+      <div className="container-products">
+        {currentPageProducts &&
+          currentPageProducts.map(product => {
+
+            return (<div key={product._id}>
+              <Card
+                style={{
+                  width: 300,
+
+                }}
+                cover={
+                  <img
+                    className="img-products"
+                    alt="img"
+                    src={product.image}
+                  />
+                }
+                actions={[
+                  <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
 
     <div className="container-products">
       {currentPageProducts &&
@@ -89,37 +119,36 @@ export function Products() {
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
 
-                   
-                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />
-                  
-                    ]}
-                    >
-                    <Meta
-                    title={product.name} 
-                    description={
-                      <div style={{display: 'flex', flexFlow: 'column'}} >
-                      <ProductRaiting product={product._id} />
+                  <ShoppingCartOutlined key="cart" onClick={() => { onClickCartHandler(product) }} />
+
+                ]}
+              >
+                <Meta
+                  title={product.name}
+                  description={
+                    <div style={{ display: 'flex', flexFlow: 'column' }} >
+                      <ProductRating product={product} onClick={openDrawer} />
                       <p className="price-showed-card">{product.price + '€'}</p>
-                      </div>
-                    }
-                    />
-                    </Card>
-                  </div>
+                    </div>
+                  }
+                />
+              </Card>
+            </div>
             )
           })
-            } 
-                    
-                    <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-                    <h1>{modalProduct.name}.</h1>
-                    <img src={modalProduct.image} alt={modalProduct.name} />
-                    <p>Brand: {modalProduct.brand}</p>
+        }
 
-                    <p className="price">Price: {modalProduct.price}€</p>
-                    </Modal>
-       
+        <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
+          <h1>{modalProduct.name}.</h1>
+          <img src={modalProduct.image} alt={modalProduct.name} />
+          <p>Brand: {modalProduct.brand}</p>
+
+          <p className="price">Price: {modalProduct.price}€</p>
+        </Modal>
+        {drawerProduct && <ReviewsDrawer product={drawerProduct} isOpen={isDrawerOpen} toClose={onDrawerClose} />}
+      </div>
+
     </div>
-        
-    </div>
-        </>
+  </>
   )
 }

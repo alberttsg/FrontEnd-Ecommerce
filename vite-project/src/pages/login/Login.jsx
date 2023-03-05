@@ -9,9 +9,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(UserContext);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     login(values);
-    navigate('/profile')
+    navigate('/profile');
     notification.success({
       message: "Bienvenid@",
       placement: 'bottomRight',

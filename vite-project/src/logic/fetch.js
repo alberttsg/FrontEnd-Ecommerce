@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export async function getOverallRating(productId) {
-  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/rating/${productId}`);
-  return res.data;
+  const getRating = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/rating/${productId}`);
+  return getRating.data;
 }
 
 export async function getProductReviews(productId) {
@@ -10,15 +10,9 @@ export async function getProductReviews(productId) {
   return res.data;
 }
 
-export async function countProductReviews(productId) {
-  const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/id/${productId}`);
-  const count = res.data.reviews.length;
-  return count;
-}
-
 export async function getUserReview(productId) {
   const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/reviews/all/${productId}`);
-  return res;
+  return res.data;
 }
 
 export async function postProductReview(productId, inputs) {

@@ -1,41 +1,12 @@
-import { useEffect, useState } from 'react';
-import { ReviewCard } from './ReviewCard';
-import { postProductReview, getUserReview } from '../../logic/fetch';
-import { Space, Spin, Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
+import { useState } from 'react';
+import { Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
 
 export function ReviewForm(props) {
-  const { isOpen, product } = props;
-  const [reviewRating, setReviewRating] = useState(3);
-  const [hasReviewed, setUserReview] = useState();
-  const [loading, setLoading] = useState(false);
-  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
-
-  useEffect(() => {
-    async function getData() {
-      const getReview = await getUserReview(product);
-      setUserReview(getReview.data);
-    };
-    getData();
-  }, [])
-
-  const postReview = async (inputs) => {
-    setLoading(true);
-    await postProductReview(product, inputs);
-    const getReview = await getUserReview(product);
-    setUserReview(getReview.data);
-    setLoading(false);
-  }
+  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
+  const { isOpen, postReview } = props;
+  const [reviewRating, setReviewRating] = useState(0);
 
   if (!isOpen) return null;
-
-  if (loading) return (
-    <Space direction="vertical" style={{ width: '100%' }}>
-        <Spin tip="Publicando">
-          <h3>Tus reseñas</h3>
-          <ReviewCard review={hasReviewed} loading={loading} />
-        </Spin>
-    </Space>
-  )
 
   return (
     <>
