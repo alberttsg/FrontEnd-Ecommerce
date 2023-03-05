@@ -11,18 +11,18 @@
   flex-wrap: wrap;
 }
 
-#allProducts {
+.eachProduct {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin: 5px;
+  gap: 10px;
+  margin: 10px;
   border: 1px solid black;
   border-radius: 10px;
   width: 420px;
-  height: 370px;
-  transition: all 0.5s;
+  height: 420px;
+  transition: all 0.2s;
   background-color: white;
 
   img {
@@ -56,4 +56,29 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.price {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.inputId {
+  display: none;
 }
