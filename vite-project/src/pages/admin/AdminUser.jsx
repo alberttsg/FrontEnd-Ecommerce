@@ -46,7 +46,7 @@ const AdminUser = () => {
               style={{ width: 300 }}
             >
               <Card.Meta
-                avatar={<Avatar src={'https://w7.pngwing.com/pngs/499/529/png-transparent-computer-icons-woman-avatar-woman-people-woman-user.png' } alt="Avatar" />}
+                avatar={<Avatar src={ user.avatar || 'https://w7.pngwing.com/pngs/499/529/png-transparent-computer-icons-woman-avatar-woman-people-woman-user.png' } alt="Avatar" />}
                 title={user.username}
                 description={user.email}
                 />
