@@ -1,23 +1,10 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
 
 export function ReviewForm(props) {
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
-  const { isOpen, product } = props;
-  const [reviewRating, setReviewRating] = useState(3);
-
-
-  const postReview = async (inputs) => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const config = { headers: { 'Authorization': token } };
-    const body = {
-      rating: inputs['review-rating'],
-      title: inputs['review-title'],
-      commentary: inputs['review-commentary'],
-    }
-    await axios.post(`https://backend-ecommerce-production-ce12.up.railway.app/products/reviews/${product._id}`, body, config);
-  }
+  const { isOpen, postReview } = props;
+  const [reviewRating, setReviewRating] = useState(0);
 
   if (!isOpen) return null;
 
