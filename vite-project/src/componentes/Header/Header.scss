@@ -27,7 +27,8 @@ height: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: rgb(74, 210, 163);
+        background: rgb(66,124,108);
+        background: linear-gradient(90deg, rgba(66,124,108,1) 0%, rgba(128,245,118,0.8989637305699482) 53%, rgba(48,159,138,1) 100%);
     }
 }.links-container{
     width: 100%;
