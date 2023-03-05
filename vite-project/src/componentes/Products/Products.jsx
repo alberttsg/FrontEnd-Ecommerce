@@ -98,7 +98,7 @@ export function Products() {
                     description={
                       <div style={{display: 'flex', flexFlow: 'column'}} >
                       <ProductRaiting product={product._id} />
-                      <p>{product.price + '€'}</p>``
+                      <p className="price-showed-card">{product.price + '€'}</p>
                       </div>
                     }
                     />
