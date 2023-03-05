@@ -6,12 +6,13 @@ import { ReviewCard } from './ReviewCard';
 import { getUserData, getUserReview, postReview, editReview, deleteReview } from './reviewFetch';
 
 export function ReviewsDrawer(props) {
-  const { product, isOpen, toClose } = props;
+  const { product, isOpen, toClose, update } = props;
   const [productInfo, setProductInfo] = useState(product);
   const [isFormOpen, setFormOpen] = useState(false);
   const [user, setUser] = useState({ _id: '', username: '' }); // userInfo
   const [userReview, setUserReview] = useState();
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState();
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
 
   useEffect(() => {
@@ -27,21 +28,29 @@ export function ReviewsDrawer(props) {
 
   const postUserReview = async (inputs) => {
     setLoading(true);
+    setLoadingText('Publicando');
     await postReview(inputs, productInfo, setProductInfo);
     setLoading(false);
+    update();
   };
 
   const editUserReview = async (inputs) => {
+    setUserReview();
     setLoading(true);
+    setLoadingText('Editando');
     await editReview(inputs, productInfo, setProductInfo);
     setLoading(false);
+    update();
   };
 
   const deleteUserReview = async () => {
+    setUserReview();
+    setLoadingText('Eliminando');
     setLoading(true);
     await deleteReview(productInfo, setProductInfo);
     setLoading(false);
     setFormOpen(false);
+    update();
   };
 
   const openForm = () => {
@@ -77,7 +86,7 @@ export function ReviewsDrawer(props) {
     >
       {loading &&
         <Space direction="vertical" style={{ width: '100%' }}>
-          <Spin tip="Publicando">
+          <Spin tip={loadingText}>
             <Card
               title={
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }} >

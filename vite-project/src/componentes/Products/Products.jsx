@@ -31,6 +31,10 @@ export function Products() {
     getProducts(setProducts);
   }, []);
 
+  const updateProducts = async () => {
+    getProducts(setProducts);
+  };
+
   const openDrawer = (product) => {
     setDrawerProduct(product);
     setDrawerOpen(true);
@@ -128,7 +132,7 @@ export function Products() {
             <p className="price">Price: {modalProduct.price}€</p>
           </Modal>
 
-          {drawerProduct && <ReviewsDrawer product={drawerProduct} isOpen={isDrawerOpen} toClose={onDrawerClose} />}
+          {drawerProduct && <ReviewsDrawer product={drawerProduct} isOpen={isDrawerOpen} toClose={onDrawerClose} update={updateProducts} />}
 
         </div>
 
