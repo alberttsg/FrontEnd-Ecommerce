@@ -71,7 +71,8 @@ export function Products() {
     <div className="container-products">
       {currentPageProducts &&
         currentPageProducts.map(product => {
-          
+            const img = product.image
+            console.log(img)
             return(<div key={product._id}>
                 <Card 
                     style={{
@@ -82,7 +83,7 @@ export function Products() {
                     <img 
                         className="img-products"
                         alt="img"
-                        src={product.image}
+                        src={img? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
                     />
                     }
                     actions={[
