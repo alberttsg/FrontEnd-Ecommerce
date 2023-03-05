@@ -49,7 +49,7 @@ export const Profile = () => {
                     {userData.email}
                 </Descriptions.Item>
                 <Descriptions.Item label="Role" className="username">
-                   {userData.role == 'admin' ? <div id='admin' onClick={()=>navigate('/admin')}>{userData.role}</div> : userData.role}
+                   {userData.role == 'admin' ? <button className='admin' onClick={()=>navigate('/admin')}>{userData.role}</button> : userData.role}
                 </Descriptions.Item>
             </Descriptions>
             </div>
