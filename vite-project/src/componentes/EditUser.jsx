@@ -3,14 +3,14 @@ import { Button, Modal, Form, Input } from "antd";
 import { UserContext } from "../context/UserContext/UserState";
 // import { useForm } from 'antd/lib/form/Form';
 
-const EditProduct = ({ visible, setVisible}) => {
+const EditUser = ({ visible, setVisible}) => {
 
 const {user, editUser} = useContext(UserContext);
 const [form]= Form.useForm();
 
 
     useEffect(()=>{
-        form.setFieldsValue(user)
+        form.setFieldsValue(user);
     },[user])
 
   const onFinish = (values) => {
@@ -19,7 +19,7 @@ const [form]= Form.useForm();
     setVisible(false);
   };
   return (
-    <Modal form={form}  title='Edit User'  open={visible} onCancel={()=>setVisible(false)}  footer={[]}>
+    <Modal title='Edit User'  open={visible} onCancel={()=>setVisible(false)}  footer={[]}>
       <Form form={form} onFinish={onFinish} >
         <Form.Item label='User Name' name='username'>
           <Input placeholder='User name' />
@@ -31,9 +31,9 @@ const [form]= Form.useForm();
         <Form.Item label='role' name='role'>
           <Input placeholder='role' />
         </Form.Item>
-        {/* <Form.Item label='password' name='password'>
-          <Input.Password placeholder='Nueva Contraseña' />
-        </Form.Item> */}
+        <Form.Item label='avatar' name='avatar'>
+          <Input placeholder='ingrese url avatar' />
+        </Form.Item> 
         <Form.Item>
           <Button type='primary' htmlType='submit'>
             Enviar
@@ -44,4 +44,4 @@ const [form]= Form.useForm();
   );
 };
 
-export default EditProduct;
+export default EditUser;

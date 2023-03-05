@@ -14,6 +14,7 @@ export const Admin = () => {
   const [ inputDisabled, setinputDisabled ] = useState(true)
   const [ productCreated, setproductCreated ] = useState()
   const [form] = Form.useForm()
+  const [formularioVisible, setFormularioVisible] = useState(false);
 
   const token = JSON.parse(localStorage.getItem('token'))
 
@@ -26,7 +27,7 @@ export const Admin = () => {
   const getProducts = async () => {
 
   try{
-    const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/products/all`, axiosConfig)
+    const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/products/all/`, axiosConfig)
       console.log(res.data)
       setProducts([...res.data])
 
@@ -77,27 +78,20 @@ const deleteProduct = async(_id) => {
 
   };
 
-  const updateProduct = async (id, brand, name, category, image, price) => {
-
-    const values = {
-      brand,
-      name,
-      category,
-      image,
-      price
-    }
+  const updateProduct = async (values) => {
 
     if(btnUpdate == 'Edit'){
       setBtnUpdate('Update')
       setinputDisabled(false)
       return
+
     } else {
       setBtnUpdate('Edit')
       setinputDisabled(true)
     }
 
     try{
-      const res = await axios.put(`https://backend-ecommerce-production-ce12.up.railway.app/products/id/${id}`, values, axiosConfig)
+      const res = await axios.put(`https://backend-ecommerce-production-ce12.up.railway.app/products/id/${values.id}`, values, axiosConfig)
       console.log(res)
 
     } catch(error){
@@ -106,15 +100,14 @@ const deleteProduct = async(_id) => {
 
     getProducts()
   }
-
   return (
     <div id='bodyProducts' >
        <div className='handle-actions-container'>
 
-    <div>Crear Producto</div>
+    <div onClick={() => setFormularioVisible(!formularioVisible)}>{formularioVisible ? 'Ocultar crear Producto' : ' Crear producto'}</div>
     <div onClick={()=>navigate('/admin/user')}>Administrar Usuarios</div>
     </div>
-    <div className='formAndProduct'>
+    {formularioVisible && (<div className='formAndProduct'>
       <Form className='form'
     form={form}
     onFinish={createProduct}
@@ -204,22 +197,82 @@ const deleteProduct = async(_id) => {
     </Form.Item>
   </Form>
   { productCreated ? <ProductCreated brand={productCreated.brand} name={productCreated.name} category={productCreated.category} image={productCreated.image} price={productCreated.price}/> : <div></div> }
-  </div>
+  </div>)}
     <Modal open={open} footer={[]}><b><h3>Producto borrado con exito</h3></b></Modal>
       <div id='divProducts'>
               {
           products.map((e, index)=>(
-            <div id='allProducts' key={`products${index}`}>
-              <input defaultValue={e.brand} disabled={inputDisabled}/>
-              <input defaultValue={e.name} disabled={inputDisabled}/>
-              <input defaultValue={e.category} disabled={inputDisabled}/>
+            <div className='eachProduct'  key={`products${index}`}>
+
+            <Form id='allProducts' onFinish={updateProduct} initialValues={{ id:e._id, brand:e.brand, name:e.name, category:e.category, price:e.price }}>
+            <Form.Item
+              name="id"
+              className='inputId'
+              rules={[
+                {
+                  required: true
+                  },
+                ]}
+              >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="brand"
+              rules={[
+                {
+                  required: true,
+                  message: 'Brand',
+                  },
+                ]}
+              >
+              <Input disabled={inputDisabled} />
+            </Form.Item>
+            <Form.Item
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: 'name',
+                  },
+                ]}
+              >
+              <Input disabled={inputDisabled} />
+            </Form.Item>
+            <Form.Item
+              name="category"
+              rules={[
+                {
+                  required: true,
+                  message: 'category',
+                  },
+                ]}
+              >
+              <Input disabled={inputDisabled} />
+            </Form.Item>
+            <div className='img'>
               <img src={e.image}/>
-              <div>
-              <input defaultValue={e.price} disabled={inputDisabled}/>
+              </div>
+            <div className='price'>
+            <Form.Item
+              name="price"
+              rules={[
+                {
+                  required: true,
+                  message: 'price',
+                  },
+                ]}
+              >
+              <Input disabled={inputDisabled} />
+            </Form.Item>
               €
               </div>
-              <button onClick={()=>updateProduct(e._id, e.brand, e.name, e.category, e.image, e.price)}>{btnUpdate}</button>
+              <div className='btn'>
+              <Button type="primary" htmlType="submit" >{ btnUpdate }</Button>
+              </div>
+              <div className='delete-btn'>
               <DeleteOutlined onClick={()=>deleteProduct(e._id)}/>
+              </div>
+              </Form>
             </div>
           ))
         }

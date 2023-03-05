@@ -2,12 +2,22 @@
 import React from 'react';
 import './Footer.scss';
 import { TwitterCircleFilled, FacebookFilled, InstagramFilled } from '@ant-design/icons';
+import { useState } from 'react';
 
 const Footer = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  function handleExpandClick() {
+    setIsExpanded(!isExpanded);
+  }
+
   return (
+    <div className={`crazy-footer ${isExpanded ? 'expanded' : ''}`}>
+      <div className="footer-content">
+
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-content">
+        <div className="footer-content-inside">
           <div className="footer-section">
             <h4>Información de contacto</h4>
             <p>Dirección: Palacio Colomina, Valencia, ES</p>
@@ -17,9 +27,9 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Redes sociales</h4>
             <ul className='social-networks'>
-              <li><InstagramFilled /></li>
-              <li><TwitterCircleFilled /> </li>
-              <li><FacebookFilled /></li>
+              <li><InstagramFilled /> Instagram</li>
+              <li><TwitterCircleFilled />  Twitter</li>
+              <li><FacebookFilled /> Facebook</li>
             </ul>
           </div>
           <div className="footer-section">
@@ -39,6 +49,11 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+      </div>
+      <button className="expand-button" onClick={handleExpandClick}>
+        {isExpanded ? 'Cerrar' : 'Expandir'}
+      </button>
+    </div>
   );
 };
 

@@ -21,10 +21,10 @@ const Header = () => {
   }
 
 
- 
-  const handleHeartClick = () => {
-    setCartCount(cartCount + 1);
-  }
+
+  const handleAddToCart = () => {
+    setCount(cartCount + 1);
+  };
 
   const handleLogoutClick = () => {
     localStorage.removeItem('token');
@@ -37,14 +37,17 @@ const Header = () => {
     setShowUserDropdown(false);
     navigate('/profile');
   }
+
+  
+
   return (
     <div className="header-rows-container">
       <div className='header-container'>
         <div className="left-side" onClick={() => navigate('/')}><img src={image} alt="logo" className='logo-class' /></div>
         <InputHeader />
         <div className="icons-container">
-          <HeaderButton handleClick={() => console.log('soy carritoooooo')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
-          <HeaderButton handleClick={handleHeartClick} icon={<HeartOutlined style={{ fontSize: '30px', color: 'white' }} />} />
+          <HeaderButton handleClick={() => navigate('/cart')} icon={<Badge count={cartCount}><ShoppingCartOutlined style={{ fontSize: '30px', color: 'white' }} /></Badge>} />
+          <HeaderButton  icon={<HeartOutlined style={{ fontSize: '30px', color: 'white' }} />} />
 
           <div className='user-button' onClick={handleUserButtonClick}>
             <UserOutlined style={{ fontSize: '30px', color: 'white' }} />
@@ -52,8 +55,8 @@ const Header = () => {
               <div className='user-check-class'>
                 {isLoggedIn ? (
                   <>
-                    <Button className={'logout-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
-                    <Button className={'profile-button-class'} onClick={handleProfile}>Ir al perfil</Button>
+                    <Button className={'login-button-class'} onClick={handleLogoutClick}>Cerrar Sesión</Button>
+                    <Button className={'login-button-class'} onClick={handleProfile}>Ir al perfil</Button>
                   </>
                 ) : (
                   <>
@@ -64,8 +67,8 @@ const Header = () => {
               </div>
             )}
           </div>
-    </div>
-    </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Products.scss';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import { ShoppingCartOutlined, InfoCircleOutlined} from '@ant-design/icons';
-import { Card, Modal } from 'antd';
+import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Modal, Dropdown, Space, Typography } from 'antd';
+import { useLocation } from 'react-router-dom';
+import ProductRaiting  from '../Reviews/ProductRating.jsx'
 
+const items = ['hola','hola2','hola3'];
 
 export function Products() {
     const { Meta } = Card;
@@ -12,9 +15,9 @@ export function Products() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [productsPerPage, setProductsPerPage] = useState(10)
     const [modalProduct, setModalProduct] = useState([]) 
-   
     const currentPageProducts = products.slice(0, productsPerPage)
-   
+    let location = useLocation();
+
     const showModal = (product) => {
       setIsModalOpen(true);
       setModalProduct(product)
@@ -30,12 +33,6 @@ export function Products() {
         setProductsPerPage((prev)=> prev +10)
       }
     }
-    useEffect(()=>{
-        window.addEventListener('scroll',handleScroll)
-    },[])
-
-
-
     useEffect(() => {
         async function getProducts (){
             const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
@@ -44,12 +41,35 @@ export function Products() {
         }   
       getProducts()  
     }, [])
-  
-
+    useEffect(()=>{
+        window.addEventListener('scroll',handleScroll)
+        console.log(location.pathname)
+        const productCategoryUnclean = products.map(product => product.category)
+        const productCategoryObj = new Set(productCategoryUnclean)
+        const productCategory = [...productCategoryObj]
+        const Obj = Object.assign({key:{}},{productCategory})  
+        console.log(Obj)
+        
+    },[products])
   return (<>
     <div className="container" >
+    <Dropdown
+    menu={{
+      items,
+      selectable: true,
+      defaultSelectedKeys: ['3'],
+    }}
+  >
+    <Typography.Link>
+      <Space>
+        Fiter
+        <DownOutlined />
+      </Space>
+    </Typography.Link>
+  </Dropdown>
+
     <div className="container-products">
-        {currentPageProducts &&
+      {currentPageProducts &&
         currentPageProducts.map(product => {
           
             return(<div key={product._id}>
@@ -67,25 +87,33 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" />,
+
+                   
+                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />
+                  
                     ]}
                     >
                     <Meta
                     title={product.name} 
-                    description={product.price + '€'}
+                    description={
+                      <div style={{display: 'flex', flexFlow: 'column'}} >
+                      <ProductRaiting product={product._id} />
+                      <p className="price-showed-card">{product.price + '€'}</p>
+                      </div>
+                    }
                     />
                     </Card>
-                   </div>
+                  </div>
             )
-        })
+          })
             } 
                     
-                     <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-                     <h1>{modalProduct.name}.</h1>
-                     <img src={modalProduct.image} alt={modalProduct.name} />
-                     <p>Brand: {modalProduct.brand}</p>
+                    <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
+                    <h1>{modalProduct.name}.</h1>
+                    <img src={modalProduct.image} alt={modalProduct.name} />
+                    <p>Brand: {modalProduct.brand}</p>
 
-                     <p className="price">Price: {modalProduct.price}€</p>
+                    <p className="price">Price: {modalProduct.price}€</p>
                     </Modal>
        
     </div>
@@ -93,4 +121,4 @@ export function Products() {
     </div>
         </>
   )
-  }
+}

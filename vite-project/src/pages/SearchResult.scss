@@ -1,0 +1,28 @@
+.search-container {
+	display: flex;
+	box-sizing: border-box;
+	height: 100%;
+	padding: 10px;
+	flex-flow: row;
+	justify-content: center;
+	align-items: start;
+
+	.product-container {
+		display: flex;
+		flex-flow: row;
+		justify-content: center;
+		align-items: start;
+		height: 100px;
+		width: 100px;
+		background: red;
+		border-radius: 10px;
+		img {
+			height: 100px;
+		}
+	}
+	.no-results {
+		font-size: x-large;
+		display: flex;
+		margin: 10px;
+	}
+}
