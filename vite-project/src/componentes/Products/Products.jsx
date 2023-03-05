@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import './Products.scss';
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
@@ -6,6 +5,7 @@ import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal } from 'antd';
 import { ProductRating } from "../Reviews/ProductRating";
 import { UserContext } from '../../context/UserContext/UserState';
+import { CartGlobalContext } from '../../context/cartContext/CartGlobalState'
 
 export function Products() {
   const { Meta } = Card;
