@@ -15,6 +15,7 @@ export const Admin = () => {
   const [ productCreated, setproductCreated ] = useState()
   const [ productUpdate, setProductUpdate ] = useState({})
   const [form] = Form.useForm()
+  const [formularioVisible, setFormularioVisible] = useState(false);
 
   const token = JSON.parse(localStorage.getItem('token'))
 
@@ -79,7 +80,6 @@ const deleteProduct = async(_id) => {
   };
 
   const updateProduct = async (values) => {
-    console.log(values)
 
     if(btnUpdate == 'Edit'){
       setBtnUpdate('Update')
@@ -89,8 +89,6 @@ const deleteProduct = async(_id) => {
     } else {
       setBtnUpdate('Edit')
       setinputDisabled(true)
-
-      console.log(values)
     }
 
     try{
@@ -103,15 +101,14 @@ const deleteProduct = async(_id) => {
 
     getProducts()
   }
-
   return (
     <div id='bodyProducts' >
        <div className='handle-actions-container'>
 
-    <div>Crear Producto</div>
+    <div onClick={() => setFormularioVisible(!formularioVisible)}>{formularioVisible ? 'Ocultar crear Producto' : ' Crear producto'}</div>
     <div onClick={()=>navigate('/admin/user')}>Administrar Usuarios</div>
     </div>
-    <div className='formAndProduct'>
+    {formularioVisible && (<div className='formAndProduct'>
       <Form className='form'
     form={form}
     onFinish={createProduct}
@@ -201,7 +198,7 @@ const deleteProduct = async(_id) => {
     </Form.Item>
   </Form>
   { productCreated ? <ProductCreated brand={productCreated.brand} name={productCreated.name} category={productCreated.category} image={productCreated.image} price={productCreated.price}/> : <div></div> }
-  </div>
+  </div>)}
     <Modal open={open} footer={[]}><b><h3>Producto borrado con exito</h3></b></Modal>
       <div id='divProducts'>
               {

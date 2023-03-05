@@ -38,7 +38,7 @@ export const Profile = () => {
                 <div className='container-profile'>
                 <Avatar
                     size={128}
-                    icon={<UserOutlined />}
+                    icon={userData.avatar || <UserOutlined />}
                     className= 'avatar'
                 />
             <Descriptions className="description-container" column={1} >

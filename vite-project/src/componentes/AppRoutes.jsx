@@ -7,8 +7,9 @@ import Cart from '../pages/cart/Cart'
 import { Admin } from '../pages/Admin'
 import AdminUser from '../pages/admin/AdminUser';
 
+
 const AppRoutes = () => {
-    return useRoutes (
+  return useRoutes(
 
         [
             {
@@ -45,4 +46,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
- 
