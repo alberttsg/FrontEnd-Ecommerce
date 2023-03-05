@@ -3,17 +3,17 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from './componentes/AppRoutes';
 import Header from './componentes/Header/Header';
 import Footer from './componentes/Footer/Footer';
-import { CartGlobalProvider } from './context/CartGlobalState'
+import { CartGlobalProvider } from './context/cartContext/CartGlobalState'
 import './App.scss'
 
 function App() {
-
+ 
   return (
    <BrowserRouter>
       <UserProvider>
         <CartGlobalProvider>
             <Header/>
-            <AppRoutes/>
+            <AppRoutes />
             <Footer/>
         </CartGlobalProvider>
       </UserProvider>

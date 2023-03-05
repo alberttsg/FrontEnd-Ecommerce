@@ -5,13 +5,18 @@
  align-items: center;
  flex-direction: column;
 
+ padding: 20px;
+  min-height: 100%;
+  margin: 0 auto -50px;
+
 }
 .container-products{
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
     flex-wrap: wrap;
-    overflow: scroll;
+    margin-bottom: 7.5rem;
+    
   
    
 }
@@ -49,8 +54,16 @@
     .price{
       text-align: center;
       font-weight: bold;
+    
     }
   }
+.price-showed-card{
 
+  text-align: start;
+
+}
+.btn-login{
+  text-align: center;
+}
   
   

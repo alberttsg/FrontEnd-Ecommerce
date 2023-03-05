@@ -88,16 +88,19 @@ const Login = () => {
         </div>
         <div className="forms-container">
           <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
+            // wrapperCol={{
+            //   offset: 8,
+            //   span: 16,
+            // }}
           >
             <div className="btn-container">
-              <Button type="primary" htmlType="submit">
+              <Button className="btn-login" type="primary" htmlType="submit">
                 Login
               </Button>
-              Or <Link to={'/register'} > register now!</Link>
+              <div>
+                Or
+              </div>
+            <Link to={'/register'} > register now!</Link>
             </div>
           </Form.Item>
         </div>
