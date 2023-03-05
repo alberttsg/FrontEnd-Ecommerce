@@ -46,10 +46,10 @@ const AdminUser = () => {
             >
               <Card.Meta
                 avatar={<Avatar src={'https://w7.pngwing.com/pngs/499/529/png-transparent-computer-icons-woman-avatar-woman-people-woman-user.png' } alt="Avatar" />}
-                title={user.name}
+                title={user.username}
                 description={user.email}
                 />
-                <p>Rol: {''} <b>{user.role}</b></p>
+                <p className="role-user">Rol: {''} <b>{user.role}</b></p>
 
               <div className='action-container-user'>
                 <DeleteTwoTone onClick={() => handleDeleteUser(user._id)} />
