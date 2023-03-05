@@ -48,9 +48,10 @@ export function Products() {
     getProducts()
   }, [])
  
-  function onClickCartHandler(addProduct) {
+
+  function onClickCartHandler(addProduct, product) {
     addCart(addProduct._id, 1);
-    
+
   }
 
 
@@ -75,7 +76,10 @@ export function Products() {
                     }
                     actions={[
                     <InfoCircleOutlined key="info" id={product._id}  onClick={()=>{showModal(product)}}/>,
-                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />,
+
+                   
+                    <ShoppingCartOutlined key="cart" onClick={()=>{onClickCartHandler(product)}} />
+                  
                     ]}
                     >
                     <Meta

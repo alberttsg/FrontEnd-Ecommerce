@@ -5,6 +5,7 @@ import './Home.scss';
   
 
 const Home = () => {
+   
     return (
         <div className='scroll-items'>
            <Products></Products>
