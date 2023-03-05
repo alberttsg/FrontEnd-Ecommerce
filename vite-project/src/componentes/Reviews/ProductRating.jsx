@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ReviewsDrawer } from './ReviewsDrawer';
 import { Rate } from 'antd';
 
-export function ProductRating(props) {
+export default function ProductRating(props) {
   const { product } = props;
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 

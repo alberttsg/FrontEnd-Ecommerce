@@ -17,9 +17,9 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Redes sociales</h4>
             <ul className='social-networks'>
-              <li><InstagramFilled /></li>
-              <li><TwitterCircleFilled /> </li>
-              <li><FacebookFilled /></li>
+              <li><InstagramFilled /> Instagram</li>
+              <li><TwitterCircleFilled />  Twitter</li>
+              <li><FacebookFilled /> Facebook</li>
             </ul>
           </div>
           <div className="footer-section">
