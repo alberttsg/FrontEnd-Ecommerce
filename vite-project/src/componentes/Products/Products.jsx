@@ -2,61 +2,72 @@ import React, { useContext } from "react";
 import './Products.scss';
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import { ShoppingCartOutlined, InfoCircleOutlined} from '@ant-design/icons';
-import { Card, Modal } from 'antd';
-import { ProductRating } from "../Reviews/ProductRating";
-import { CartGlobalContext } from "../../context/cartContext/CartGlobalState";
+import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Modal, Dropdown, Space, Typography } from 'antd';
+import { useLocation } from 'react-router-dom';
+import ProductRaiting  from '../Reviews/ProductRating.jsx'
 
+const items = ['hola','hola2','hola3'];
 
 export function Products() {
-  const { Meta } = Card;
-  const { addCart } = useContext(CartGlobalContext);
-  const [products, setProducts] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productsPerPage, setProductsPerPage] = useState(10)
-  const [modalProduct, setModalProduct] = useState([])
+    const { Meta } = Card;
+    const [products, setProducts] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [productsPerPage, setProductsPerPage] = useState(10)
+    const [modalProduct, setModalProduct] = useState([]) 
+    const currentPageProducts = products.slice(0, productsPerPage)
+    let location = useLocation();
 
-  const currentPageProducts = products.slice(0, productsPerPage)
-
-  const showModal = (product) => {
-    setIsModalOpen(true);
-    setModalProduct(product)
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const handleScroll = () => {
-    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-      setProductsPerPage((prev) => prev + 10)
+    const showModal = (product) => {
+      setIsModalOpen(true);
+      setModalProduct(product)
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };  
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop +1 >= document.documentElement.scrollHeight){
+        setProductsPerPage((prev)=> prev +10)
+      }
     }
-  }
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-  }, [])
-
-
-
-  useEffect(() => {
-    async function getProducts() {
-      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all/1')
-      const data = res.data
-      setProducts(data)
-    }
-    getProducts()
-  }, [])
- 
-
-  function onClickCartHandler(addProduct, product) {
-    addCart(addProduct._id, 1);
-
-  }
-
-
+    useEffect(() => {
+        async function getProducts (){
+            const res = await axios.get ('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
+            const data = res.data
+            setProducts(data)
+        }   
+      getProducts()  
+    }, [])
+    useEffect(()=>{
+        window.addEventListener('scroll',handleScroll)
+        console.log(location.pathname)
+        const productCategoryUnclean = products.map(product => product.category)
+        const productCategoryObj = new Set(productCategoryUnclean)
+        const productCategory = [...productCategoryObj]
+        const Obj = Object.assign({key:{}},{productCategory})  
+        console.log(Obj)
+        
+    },[products])
   return (<>
-    <div className="container">
+    <div className="container" >
+    <Dropdown
+    menu={{
+      items,
+      selectable: true,
+      defaultSelectedKeys: ['3'],
+    }}
+  >
+    <Typography.Link>
+      <Space>
+        Fiter
+        <DownOutlined />
+      </Space>
+    </Typography.Link>
+  </Dropdown>
+
     <div className="container-products">
       {currentPageProducts &&
         currentPageProducts.map(product => {
@@ -86,7 +97,7 @@ export function Products() {
                     title={product.name} 
                     description={
                       <div style={{display: 'flex', flexFlow: 'column'}} >
-                      <ProductRating product={product._id} />
+                      <ProductRaiting product={product._id} />
                       <p>{product.price + '€'}</p>``
                       </div>
                     }

@@ -22,7 +22,9 @@ const Header = () => {
 
 
 
-
+  const handleAddToCart = () => {
+    setCount(cartCount + 1);
+  };
 
   const handleLogoutClick = () => {
     localStorage.removeItem('token');
