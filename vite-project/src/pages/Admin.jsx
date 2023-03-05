@@ -13,7 +13,6 @@ export const Admin = () => {
   const [ btnUpdate, setBtnUpdate ] = useState('Edit')
   const [ inputDisabled, setinputDisabled ] = useState(true)
   const [ productCreated, setproductCreated ] = useState()
-  const [ productUpdate, setProductUpdate ] = useState({})
   const [form] = Form.useForm()
   const [formularioVisible, setFormularioVisible] = useState(false);
 
