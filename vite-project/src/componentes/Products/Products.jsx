@@ -1,8 +1,8 @@
 import './Products.scss';
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Card, Modal, Dropdown, Space, Typography, Button } from 'antd';
+import { Card, Modal, Dropdown, Space, Typography } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ProductRating } from '../Reviews/ProductRating.jsx'
 import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
