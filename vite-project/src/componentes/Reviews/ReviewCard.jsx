@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import { Rate, Skeleton, Card, Avatar } from 'antd';
 
+
 export function ReviewCard(props) {
+  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
   const { review, loading } = props;
   const { user, rating, title, commentary } = review;
-  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!']
 
   return (
     <Card
@@ -29,7 +29,7 @@ export function ReviewCard(props) {
       >
         <div style={{ display: 'flex', flexFlow: 'column', gap: '10px' }} >
           <p>{commentary}</p>
-          <p><em>{user.username}</em></p>
+          <p><em>{user.username}{review.postedAt}</em></p>
         </div>
       </Skeleton>
     </Card>

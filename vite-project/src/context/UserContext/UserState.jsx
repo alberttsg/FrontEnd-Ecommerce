@@ -18,12 +18,6 @@ export const UserProvider = ({ children }) => {
 
   const login = async (user) => {
     const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/login', user);
-    const userInfo = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, {
-      headers: {
-        Authorization: res.data.token
-      }
-    });
-    console.log(userInfo)
     dispatch({
       type: "LOGIN-REGISTER",
       payload: res.data,
@@ -56,23 +50,6 @@ export const UserProvider = ({ children }) => {
       payload: res.data,
     });
     return res;
-  }
-
-  const getUserInfo = async () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    if (!token) return null;
-    try {
-      const res = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, {
-        headers: { Authorization: token }
-      });
-      dispatch({
-        type: 'USER_INFO',
-        payload: res.data,
-      });
-      return res.data;
-    } catch (error) {
-      console.log(error.response.data);
-    }
   }
 
   const getUserById = async (id) => {
@@ -128,8 +105,6 @@ export const UserProvider = ({ children }) => {
         register,
         getUsers,
         users: state.users,
-        getUserInfo,
-        userInfo: state.userInfo,
         getUserById,
         editUser,
         deleteUser,

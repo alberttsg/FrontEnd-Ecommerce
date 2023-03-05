@@ -2,10 +2,10 @@ import React from "react";
 import './Products.scss';
 import { useEffect, useState, useContext } from "react";
 import axios from 'axios'
+import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
 import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal } from 'antd';
 import { ProductRating } from "../Reviews/ProductRating";
-import { UserContext } from '../../context/UserContext/UserState';
 
 export function Products() {
   const { Meta } = Card;
@@ -14,14 +14,18 @@ export function Products() {
   const [productsPerPage, setProductsPerPage] = useState(10);
   const [modalProduct, setModalProduct] = useState([]);
   const currentPageProducts = products.slice(0, productsPerPage);
-  const { getUserInfo } = useContext(UserContext);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [drawerProduct, setDrawerProduct] = useState();
 
-  useEffect(() => {
-    async function getData() {
-      await getUserInfo();
-    };
-    getData();
-  }, [])
+  const openDrawer = (product) => {
+    setDrawerProduct(product);
+    setDrawerOpen(true);
+  };
+
+  const onDrawerClose = () => {
+    setDrawerOpen(false);
+    setDrawerProduct();
+  };
 
   const showModal = (product) => {
     setIsModalOpen(true);
@@ -42,17 +46,14 @@ export function Products() {
     window.addEventListener('scroll', handleScroll)
   }, [])
 
-
-
   useEffect(() => {
     async function getProducts() {
-      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all/1')
+      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
       const data = res.data
       setProducts(data)
     }
     getProducts()
   }, [])
-
 
   return (<>
     <div className="container" >
@@ -82,7 +83,7 @@ export function Products() {
                   title={product.name}
                   description={
                     <div style={{ display: 'flex', flexFlow: 'column' }} >
-                      <ProductRating product={product} />
+                      <ProductRating product={product} callback={openDrawer} />
                       <p>{product.price + '€'}</p>
                     </div>
                   }
@@ -100,9 +101,8 @@ export function Products() {
 
           <p className="price">Price: {modalProduct.price}€</p>
         </Modal>
-
+        {drawerProduct && <ReviewsDrawer product={drawerProduct} isOpen={isDrawerOpen} toClose={onDrawerClose} />}
       </div>
-
     </div>
   </>
   )
