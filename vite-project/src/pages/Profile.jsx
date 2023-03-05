@@ -25,8 +25,8 @@ export const Profile = () => {
             const getUser = async () => {
                 const res = await axios.get (`https://backend-ecommerce-production-ce12.up.railway.app/users/id/`, axiosConfig)
                 if (res.data) {
-                    const { username, email, role } = res.data
-                setUserData({username, email, role})
+                    const { username, email, role, ava } = res.data
+                setUserData({username, email, role, avatar})
                 }
             }
             getUser()
@@ -38,7 +38,7 @@ export const Profile = () => {
                 <div className='container-profile'>
                 <Avatar
                     size={128}
-                    icon={userData.avatar || <UserOutlined />}
+                    icon={ <img src={userData.avatar}/>|| <UserOutlined />}
                     className= 'avatar'
                 />
             <Descriptions className="description-container" column={1} >
