@@ -9,8 +9,9 @@
   // margin-top: 80px;
   // align-items: center;
   form{
-    width: 500px;
-    background-color: white;
+    width: 450px;
+    height: 60vh;
+    background-color: rgb(74, 210, 163);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -25,6 +26,9 @@
         align-items: center;
         flex-wrap: wrap;
         width: 100%;
+      }
+      a{
+        padding: 5px;
       }
     }
   }
