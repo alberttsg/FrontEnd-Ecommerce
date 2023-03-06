@@ -22,9 +22,11 @@
 }
 .img-products{
     object-fit:contain;
-    width: 50px;
-    height: 100px;
-    margin: 0.8rem;
+    width: auto ;
+    height: 150px;
+    margin-top: 1rem;
+
+    
     
     
 }
@@ -50,12 +52,21 @@
       width: 450px;
       height: 500px;
       margin: 0.8rem;
+     
     }
     .price{
       text-align: center;
       font-weight: bold;
+    
     }
   }
+.price-showed-card{
 
+  text-align: start;
+
+}
+.btn-login{
+  text-align: center;
+}
   
   

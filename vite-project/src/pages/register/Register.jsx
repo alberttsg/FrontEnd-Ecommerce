@@ -97,19 +97,13 @@ const Register = () => {
           </Form.Item>
         </div>
 
-        <div className="forms-container"  >
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <div className="btn-container">
+        <div className="forms-container">
+          <Form.Item >
               <Button type="primary" htmlType="submit">
                 Register
               </Button>
-              Or <Link to={'/login'}>login Now!</Link>
-            </div>
+              <div>Or </div>
+              <Link to={'/login'}>login Now !</Link>
           </Form.Item>
         </div>
       </Form>

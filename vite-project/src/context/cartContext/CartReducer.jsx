@@ -15,8 +15,7 @@ export const CartReducer = (state,action) => {
     case 'CLEAR_CART':
       return{
         ...state,
-        cart: action.payload.items,
-        cartTotal: Math.round((action.payload.total + Number.EPSILON) * 100) / 100,
+        cart: '',
       };
     default:
       return state;

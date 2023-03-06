@@ -6,14 +6,21 @@
 
 .quantityButton{
   font-size: 20px;
-  padding: 50%;
+}
+
+.containerButtonsQuantity{
+  width: 20%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .ant-card-body{
   padding: 0%;
   p{
     display:flex;
-    width: 480px;
-    justify-content: center;
+    width: fit-content;
+    justify-content: start;
+    margin: 0.5rem;
   }
 }

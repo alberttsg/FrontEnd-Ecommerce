@@ -41,7 +41,7 @@ const putCart = async () => {
       {
         tickets.map((e, index)=>(
           <div key={`tickets${index}`} id='ticketsUser'>
-          <div><strong>Owner:</strong> {e.user.username}</div>
+          <div className='owner'><strong>Owner:</strong> {e.user.username}</div>
           <div>{e.items.map((e, index)=>(
             <div id='ticketsUser' key={`${index}`}>
               <div> <strong>Brand:</strong>  {e.product.brand}</div>
