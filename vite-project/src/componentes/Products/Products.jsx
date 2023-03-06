@@ -9,8 +9,9 @@ import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
 
 const items = ['hola', 'hola2', 'hola3'];
 
-export function Products() {
+export function Products(props) {
   const { Meta } = Card;
+  const { route, search } = props;
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productsPerPage, setProductsPerPage] = useState(10)
@@ -22,14 +23,27 @@ export function Products() {
   const [drawerProduct, setDrawerProduct] = useState();
 
   async function getProducts(callback) {
-    const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all')
-    const data = res.data
-    callback(data)
+    switch (route) {
+      case 'home':
+        const res1 = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all');
+        const data1 = res1.data;
+        callback(data1);
+        break;
+      case 'search':
+        const res2 = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/products/search/${search}`);
+        const data2 = res2.data;
+        callback(data2);
+        break;
+    }
   };
 
   useEffect(() => {
     getProducts(setProducts);
   }, []);
+
+  useEffect(() => {
+    getProducts(setProducts);
+  }, [search]);
 
   const updateProducts = async () => {
     getProducts(setProducts);

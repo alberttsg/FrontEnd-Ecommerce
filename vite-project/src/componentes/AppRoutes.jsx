@@ -8,6 +8,7 @@ import { Admin } from '../pages/Admin'
 import AdminUser from '../pages/admin/AdminUser';
 import { PrivateZone } from '../guards/guards';
 import { PageNotFound } from '../guards/guards';
+import { SearchResult } from '../pages/SearchResult';
 
 
 const AppRoutes = () => {
@@ -41,6 +42,14 @@ const AppRoutes = () => {
               {
                 element: <PrivateZone><AdminUser/></PrivateZone> ,
                 path: '/admin/user'
+              },
+              {
+                element: <SearchResult/> ,
+                path: '/search/'
+              },
+              {
+                element: <SearchResult/> ,
+                path: '/search/:search'
               },
               {
                 element: <PageNotFound/> ,
