@@ -14,8 +14,6 @@ function Cart(){
     getCart();
   },[])
 
-  console.log(cart.length,'this is cart');
-  console.log(cartTotal)
 
   return(
     <div className='body-class-container'>
@@ -32,13 +30,14 @@ function Cart(){
                 productImg={e.product.image}
                 product_id={e.product._id}
                 quantity={e.quantity}
+                priceArticle={e.product.price}
               />
             ))
           }
         </Space>
       }
       <div className='divider'/>
-      <Card style={ { width: 300 } }>
+      <Card style={ { width: 300, height: '450px'} }>
         <CartCheckout 
           total = { cartTotal }
         />

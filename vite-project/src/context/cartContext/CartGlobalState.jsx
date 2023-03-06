@@ -56,12 +56,20 @@ export const CartGlobalProvider = ({ children }) => {
 
   const clearCart = async () => {
     try{
-      const res = axios.post('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart');
+      const res = await axios.post('https://backend-ecommerce-production-ce12.up.railway.app/tickets/clearcart',
+      {
+
+      },
+      {
+        headers: {
+          'Authorization': token
+        }
+      });
+      console.log(res);
       dispatch({
         type:'CLEAR_CART',
-        payload: res.data,
       });
-      console.log(res,'clear');
+      
     }catch(e){
       console.log(e.response.data);
     }

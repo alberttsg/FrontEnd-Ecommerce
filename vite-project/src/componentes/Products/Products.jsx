@@ -5,7 +5,8 @@ import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal, Dropdown, Space, Typography } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { ProductRating } from '../Reviews/ProductRating.jsx'
+import { CartGlobalContext } from '../../context/cartContext/CartGlobalState';
+import { ProductRating } from '../Reviews/ProductRating.jsx';
 import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
 import { Button } from 'antd';
 import imageNot from '../../assets/Image_not_available.png'
@@ -13,6 +14,7 @@ import imageNot from '../../assets/Image_not_available.png'
 export function Products(props) {
   const { Meta } = Card;
   const { route, search } = props;
+  const { addCart } = useContext(CartGlobalContext);
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productsPerPage, setProductsPerPage] = useState(10)
@@ -42,6 +44,10 @@ export function Products(props) {
         break;
     }
   };
+
+  function onClickCartHandler(addProduct) {
+    addCart(addProduct._id, 1);
+  }
 
   useEffect(() => {
     getProducts(setProducts);
@@ -128,19 +134,19 @@ export function Products(props) {
             currentPageProducts.map(product => {
               const img = product.image
               // console.log(img)
-              
+
 
               return (<div key={product._id}>
                 <Card
                   style={{ width: 300 }}
                   cover={
                     <img
-                    className="img-products"
-                    alt="img"
-                    src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
-                    onError={(e) => {e.target.onerror = null; e.target.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}}
-                  />
-                  
+                      className="img-products"
+                      alt="img"
+                      src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png' }}
+                    />
+
 
                   }
                   actions={[
@@ -163,12 +169,12 @@ export function Products(props) {
             })
           }
 
-          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close'  okButtonProps={{
-    style: { backgroundColor: '#50a9bb', color: '#fff' }
-  }} className='modal'cancelButtonProps={{
- 
-    style: { backgroundColor: '#50a9bb', color: '#fff' }
-  }}>
+          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' okButtonProps={{
+            style: { backgroundColor: '#50a9bb', color: '#fff' }
+          }} className='modal' cancelButtonProps={{
+
+            style: { backgroundColor: '#50a9bb', color: '#fff' }
+          }}>
             <h1>{modalProduct.name}.</h1>
             <img src={modalProduct.image} alt={modalProduct.name} />
             <p>Brand: {modalProduct.brand}</p>
