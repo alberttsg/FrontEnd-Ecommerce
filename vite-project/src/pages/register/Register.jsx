@@ -103,7 +103,7 @@ const Register = () => {
                 Register
               </Button>
               <div>Or </div>
-              <Link to={'/login'}>login Now!</Link>
+              <Link to={'/login'}>login Now !</Link>
           </Form.Item>
         </div>
       </Form>
