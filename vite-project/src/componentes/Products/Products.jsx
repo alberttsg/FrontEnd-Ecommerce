@@ -1,5 +1,6 @@
 import './Products.scss';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal, Dropdown, Space, Typography } from 'antd';
@@ -20,7 +21,9 @@ export function Products(props) {
   const [currentCategory, setCurrentCategory] = useState('ALL')
   const [productsFitlered, setProductsFitlered] = useState([])
   const currentPageProducts = productsFitlered.slice(0, productsPerPage)
+  const navigate = useNavigate();
   let location = useLocation();
+  
 
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [drawerProduct, setDrawerProduct] = useState();
@@ -79,8 +82,10 @@ export function Products(props) {
     }
   };
   const handleMenu = (e) => {
-    console.log(e.target.innerText)
     setCurrentCategory(e.target.innerText)
+    if ( e.target.innerText === 'ALL'){
+      navigate('/')
+    }
   }
 
   useEffect(() => {
