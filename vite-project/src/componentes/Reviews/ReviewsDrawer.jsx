@@ -9,21 +9,20 @@ export function ReviewsDrawer(props) {
   const { product, isOpen, toClose, update } = props;
   const [productInfo, setProductInfo] = useState(product);
   const [isFormOpen, setFormOpen] = useState(false);
-  const [user, setUser] = useState({ _id: '', username: '' }); // userInfo
+  const [user, setUser] = useState({ _id: '', username: '' });
+  const [username, setUsername] = useState({ _id: '', username: '' });
   const [userReview, setUserReview] = useState();
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState();
   const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
 
   useEffect(() => {
-    async function getData() {
-      await getUserData(setUser);
-    }
-    getData();
+    getUserData(setUser);
   }, [])
 
   useEffect(() => {
     getUserReview(productInfo, user, setUserReview);
+    setUsername(user.username);
   }, [user, productInfo])
 
   const postUserReview = async (inputs) => {
@@ -77,7 +76,7 @@ export function ReviewsDrawer(props) {
       closable={false}
       extra={
         <Space>
-          {user && !userReview &&
+          {username && !userReview &&
             <Button onClick={isFormOpen ? onFormClose : openForm} type="primary">{isFormOpen ? 'Cancelar' : 'Publicar reseña'}</Button>
           }
           <Button onClick={toClose} type="primary">Cerrar</Button>
