@@ -129,7 +129,12 @@ export function Products() {
             })
           }
 
-          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
+          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close'  okButtonProps={{
+    style: { backgroundColor: '#50a9bb', color: '#fff' }
+  }} className='modal'cancelButtonProps={{
+ 
+    style: { backgroundColor: '#50a9bb', color: '#fff' }
+  }}>
             <h1>{modalProduct.name}.</h1>
             <img src={modalProduct.image} alt={modalProduct.name} />
             <p>Brand: {modalProduct.brand}</p>

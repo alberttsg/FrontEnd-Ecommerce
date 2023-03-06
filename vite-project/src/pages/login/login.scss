@@ -5,13 +5,14 @@
   align-items: center;
   width: 100%;
   height: 70vh;
+  
   // position: fixed; 
   // margin-top: 80px;
   // align-items: center;
   form{
     width: 450px;
     height: 60vh;
-    background-color: rgb(74, 210, 163);
+    background-color: rgba(253, 255, 254, 0.037);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -46,6 +47,7 @@
   border-radius: 2rem !important;
  padding: 0 !important;
  margin: 0.5rem !important;
+ background-color: #50a9bb;
 }
 .btn-container div{
   margin: 0.3rem !important;
