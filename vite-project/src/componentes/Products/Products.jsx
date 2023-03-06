@@ -6,6 +6,7 @@ import { Card, Modal, Dropdown, Space, Typography } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { ProductRating } from '../Reviews/ProductRating.jsx'
 import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
+import imageNot from '../../assets/Image_not_available.png'
 
 const items = ['hola', 'hola2', 'hola3'];
 
@@ -64,13 +65,12 @@ export function Products() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-    console.log(location.pathname)
+    // console.log(location.pathname)
     const productCategoryUnclean = products.map(product => product.category)
     const productCategoryObj = new Set(productCategoryUnclean)
     const productCategory = [...productCategoryObj]
     const Obj = Object.assign({ key: {} }, { productCategory })
   }, [products]);
-
   return (
     <>
       <div className="container" >
@@ -93,16 +93,21 @@ export function Products() {
           {currentPageProducts &&
             currentPageProducts.map(product => {
               const img = product.image
-              console.log(img)
+              // console.log(img)
+              
+
               return (<div key={product._id}>
                 <Card
                   style={{ width: 300 }}
                   cover={
                     <img
-                      className="img-products"
-                      alt="img"
-                      src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
-                    />
+                    className="img-products"
+                    alt="img"
+                    src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
+                    onError={(e) => {e.target.onerror = null; e.target.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}}
+                  />
+                  
+
                   }
                   actions={[
                     <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
