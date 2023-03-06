@@ -90,14 +90,6 @@ const Register = () => {
           </Form.Item>
         </div>
         <div className="forms-container">
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-          </Form.Item>
-        </div>
-
-        <div className="forms-container">
           <Form.Item >
               <Button type="primary" htmlType="submit">
                 Register
