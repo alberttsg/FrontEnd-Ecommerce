@@ -23,6 +23,7 @@
     }
 
     .forms-container {
+      width: 100%;
       text-align: center;
       div {
         display: flex;
@@ -34,6 +35,12 @@
       a{
         padding: 5px;
       }
+      button{
+        // margin-right: 3.5rem;
+        background-color: #50a9bb;
+      }
+      
+
     }
   }
 }
