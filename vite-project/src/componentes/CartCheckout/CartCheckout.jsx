@@ -14,6 +14,7 @@ function CartCheckout(props){
   const [ errorDiscount, setErrorDiscount ] = useState();
 
   function promo(tryCupon){
+    if (!tryCupon) return;
     setErrorDiscount('');
       switch(tryCupon){
         case 'rebajita10':
