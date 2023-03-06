@@ -1,41 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
-import { ReviewCard } from './ReviewCard';
-import { Space, Spin, Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
-import axios from 'axios';
-import { UserContext } from '../../context/UserContext/UserState';
-import { DrawerContext } from './ReviewsDrawer';
+import { useState } from 'react';
+import { Form, Row, Col, Input, Button, Divider, Rate } from 'antd';
 
 export function ReviewForm(props) {
-  const { isOpen, product, userReview, setUserReview } = props;
-  const { userInfo } = useContext(UserContext);
-  const { desc, review, setReview } = useContext(DrawerContext);
-  const [reviewRating, setReviewRating] = useState(3);
-  const [loading, setLoading] = useState(false);
-
-  const postReview = async (inputs) => {
-    setLoading(true);
-    const token = JSON.parse(localStorage.getItem('token'));
-    const config = { headers: { 'Authorization': token } };
-    const body = {
-      rating: inputs['review-rating'],
-      title: inputs['review-title'],
-      commentary: inputs['review-commentary'],
-    }
-    const res = await axios.post(`https://backend-ecommerce-production-ce12.up.railway.app/products/reviews/${product._id}`, body, config);
-    const review = res.data.reviews.find(i => i.user._id === userInfo._id);
-    if (review) { setUserReview(review) }
-    else { setUserReview(null) }
-    setLoading(false);
-  }
-
-  if (review) return (
-    <Space direction="vertical" style={{ width: '100%' }}>
-      <Spin tip="Publicando" spinning={loading} >
-        <h3>Tus reseñas</h3>
-        <ReviewCard review={userReview} loading={loading} />
-      </Spin>
-    </Space>
-  )
+  const desc = ['Pésimo', 'Malo', 'No está mal', 'Bueno', '¡Fantástico!'];
+  const { isOpen, postReview } = props;
+  const [reviewRating, setReviewRating] = useState(0);
 
   if (!isOpen) return null;
 

@@ -1,26 +1,15 @@
-import { useState } from 'react';
-import { ReviewsDrawer } from './ReviewsDrawer';
-import { Rate } from 'antd';
+import { Rate, Tooltip } from 'antd';
 
 export function ProductRating(props) {
-  const { product } = props;
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
-
-  const openDrawer = () => {
-    setDrawerOpen(true);
-  };
-
-  const onDrawerClose = () => {
-    setDrawerOpen(false);
-  };
+  const { product, onClick } = props;
+  const { overallRating, reviewsCount } = product;
 
   return (
     <>
-      <span onClick={openDrawer} >
-        <Rate disabled allowHalf value={product.overallRating} />
-        <span style={{margin: '0 10px'}} >({product.reviewsCount} {product.reviewsCount == 1 ? 'reseña' : 'reseñas'})</span>
-      </span>
-      <ReviewsDrawer product={product} isOpen={isDrawerOpen} toClose={onDrawerClose} />
+      <Tooltip placement="bottom" title="Ver reseñas" onClick={() => onClick(product)} >
+        <Rate disabled allowHalf value={overallRating} />
+        <span style={{ margin: '0 10px', cursor: 'pointer'}}>({reviewsCount} {reviewsCount == 1 ? 'reseña' : 'reseñas'})</span>
+      </Tooltip>
     </>
   )
 }

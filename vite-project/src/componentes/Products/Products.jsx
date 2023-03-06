@@ -1,27 +1,64 @@
-import React from "react";
 import './Products.scss';
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios'
-import { ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Card, Modal } from 'antd';
-import { ProductRating } from "../Reviews/ProductRating";
-import { UserContext } from '../../context/UserContext/UserState';
+import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Modal, Dropdown, Space, Typography } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { ProductRating } from '../Reviews/ProductRating.jsx'
+import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
+import imageNot from '../../assets/Image_not_available.png'
 
-export function Products() {
+const items = ['hola', 'hola2', 'hola3'];
+
+export function Products(props) {
   const { Meta } = Card;
+  const { route, search } = props;
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productsPerPage, setProductsPerPage] = useState(10);
-  const [modalProduct, setModalProduct] = useState([]);
-  const currentPageProducts = products.slice(0, productsPerPage);
-  const { getUserInfo } = useContext(UserContext);
+  const [productsPerPage, setProductsPerPage] = useState(10)
+  const [modalProduct, setModalProduct] = useState([])
+  const currentPageProducts = products.slice(0, productsPerPage)
+  let location = useLocation();
+
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [drawerProduct, setDrawerProduct] = useState();
+
+  async function getProducts(callback) {
+    switch (route) {
+      case 'home':
+        const res1 = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all');
+        const data1 = res1.data;
+        callback(data1);
+        break;
+      case 'search':
+        const res2 = await axios.get(`https://backend-ecommerce-production-ce12.up.railway.app/products/search/${search}`);
+        const data2 = res2.data;
+        callback(data2);
+        break;
+    }
+  };
 
   useEffect(() => {
-    async function getData() {
-      await getUserInfo();
-    };
-    getData();
-  }, [])
+    getProducts(setProducts);
+  }, []);
+
+  useEffect(() => {
+    getProducts(setProducts);
+  }, [search]);
+
+  const updateProducts = async () => {
+    getProducts(setProducts);
+  };
+
+  const openDrawer = (product) => {
+    setDrawerProduct(product);
+    setDrawerOpen(true);
+  };
+
+  const onDrawerClose = () => {
+    setDrawerOpen(false);
+    setDrawerProduct();
+  };
 
   const showModal = (product) => {
     setIsModalOpen(true);
@@ -33,77 +70,97 @@ export function Products() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const handleScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
       setProductsPerPage((prev) => prev + 10)
     }
-  }
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-  }, [])
+    // console.log(location.pathname)
+    const productCategoryUnclean = products.map(product => product.category)
+    const productCategoryObj = new Set(productCategoryUnclean)
+    const productCategory = [...productCategoryObj]
+    const Obj = Object.assign({ key: {} }, { productCategory })
+  }, [products]);
+  return (
+    <>
+      <div className="container" >
+        <Dropdown
+          menu={{
+            items,
+            selectable: true,
+            defaultSelectedKeys: ['3'],
+          }}
+        >
+          <Typography.Link>
+            <Space>
+              Fiter
+              <DownOutlined />
+            </Space>
+          </Typography.Link>
+        </Dropdown>
 
+        <div className="container-products">
+          {currentPageProducts &&
+            currentPageProducts.map(product => {
+              const img = product.image
+              // console.log(img)
+              
 
-
-  useEffect(() => {
-    async function getProducts() {
-      const res = await axios.get('https://backend-ecommerce-production-ce12.up.railway.app/products/all/1')
-      const data = res.data
-      setProducts(data)
-    }
-    getProducts()
-  }, [])
-
-
-  return (<>
-    <div className="container" >
-      <div className="container-products">
-        {currentPageProducts &&
-          currentPageProducts.map(product => {
-
-            return (<div key={product._id}>
-              <Card
-                style={{
-                  width: 300,
-
-                }}
-                cover={
-                  <img
+              return (<div key={product._id}>
+                <Card
+                  style={{ width: 300 }}
+                  cover={
+                    <img
                     className="img-products"
                     alt="img"
-                    src={product.image}
+                    src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
+                    onError={(e) => {e.target.onerror = null; e.target.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}}
                   />
-                }
-                actions={[
-                  <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
-                  <ShoppingCartOutlined key="cart" />,
-                ]}
-              >
-                <Meta
-                  title={product.name}
-                  description={
-                    <div style={{ display: 'flex', flexFlow: 'column' }} >
-                      <ProductRating product={product} />
-                      <p>{product.price + '€'}</p>
-                    </div>
+                  
+
                   }
-                />
-              </Card>
-            </div>
-            )
-          })
-        }
+                  actions={[
+                    <InfoCircleOutlined key="info" id={product._id} onClick={() => { showModal(product) }} />,
+                    <ShoppingCartOutlined key="cart" onClick={() => { onClickCartHandler(product) }} />
+                  ]}
+                >
+                  <Meta
+                    title={product.name}
+                    description={
+                      <div style={{ display: 'flex', flexFlow: 'column' }} >
+                        <ProductRating product={product} onClick={openDrawer} />
+                        <p className="price-showed-card">{product.price + '€'}</p>
+                      </div>
+                    }
+                  />
+                </Card>
+              </div>
+              )
+            })
+          }
 
-        <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' className='modal'>
-          <h1>{modalProduct.name}.</h1>
-          <img src={modalProduct.image} alt={modalProduct.name} />
-          <p>Brand: {modalProduct.brand}</p>
+          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close'  okButtonProps={{
+    style: { backgroundColor: '#50a9bb', color: '#fff' }
+  }} className='modal'cancelButtonProps={{
+ 
+    style: { backgroundColor: '#50a9bb', color: '#fff' }
+  }}>
+            <h1>{modalProduct.name}.</h1>
+            <img src={modalProduct.image} alt={modalProduct.name} />
+            <p>Brand: {modalProduct.brand}</p>
 
-          <p className="price">Price: {modalProduct.price}€</p>
-        </Modal>
+            <p className="price">Price: {modalProduct.price}€</p>
+          </Modal>
+
+          {drawerProduct && <ReviewsDrawer product={drawerProduct} isOpen={isDrawerOpen} toClose={onDrawerClose} update={updateProducts} />}
+
+        </div>
 
       </div>
-
-    </div>
-  </>
+    </>
   )
 }

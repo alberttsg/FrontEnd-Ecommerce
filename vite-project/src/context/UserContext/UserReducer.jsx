@@ -10,11 +10,6 @@ const users = (state, action) => {
         ...state,
         users: action.payload,
       };
-    case "USER_INFO":
-      return {
-        ...state,
-        userInfo: action.payload,
-      };
     case "GET_USER_BY_ID":
       return {
         ...state,
