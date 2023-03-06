@@ -1,24 +1,31 @@
 import './Products.scss';
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { DownOutlined, ShoppingCartOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Modal, Dropdown, Space, Typography } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { ProductRating } from '../Reviews/ProductRating.jsx'
+import { CartGlobalContext } from '../../context/cartContext/CartGlobalState';
+import { ProductRating } from '../Reviews/ProductRating.jsx';
 import { ReviewsDrawer } from '../Reviews/ReviewsDrawer';
+import { Button } from 'antd';
 import imageNot from '../../assets/Image_not_available.png'
-
-const items = ['hola', 'hola2', 'hola3'];
 
 export function Products(props) {
   const { Meta } = Card;
   const { route, search } = props;
+  const { addCart } = useContext(CartGlobalContext);
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productsPerPage, setProductsPerPage] = useState(10)
   const [modalProduct, setModalProduct] = useState([])
-  const currentPageProducts = products.slice(0, productsPerPage)
+  const [category, setCategory] = useState([])
+  const [currentCategory, setCurrentCategory] = useState('ALL')
+  const [productsFitlered, setProductsFitlered] = useState([])
+  const currentPageProducts = productsFitlered.slice(0, productsPerPage)
+  const navigate = useNavigate();
   let location = useLocation();
+  
 
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [drawerProduct, setDrawerProduct] = useState();
@@ -37,6 +44,10 @@ export function Products(props) {
         break;
     }
   };
+
+  function onClickCartHandler(addProduct) {
+    addCart(addProduct._id, 1);
+  }
 
   useEffect(() => {
     getProducts(setProducts);
@@ -76,51 +87,66 @@ export function Products(props) {
       setProductsPerPage((prev) => prev + 10)
     }
   };
+  const handleMenu = (e) => {
+    setCurrentCategory(e.target.innerText)
+    if ( e.target.innerText === 'ALL'){
+      navigate('/')
+    }
+  }
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
-    // console.log(location.pathname)
     const productCategoryUnclean = products.map(product => product.category)
     const productCategoryObj = new Set(productCategoryUnclean)
     const productCategory = [...productCategoryObj]
-    const Obj = Object.assign({ key: {} }, { productCategory })
+    setCategory(productCategory)
+    setProductsFitlered(products)
+   
   }, [products]);
+  useEffect(()=>{
+
+  if (currentCategory !== 'ALL') {
+    const x = category.filter(category => category === currentCategory)      
+    const filterProduct = products.filter(product => product.category === x.toString())
+    setProductsFitlered(filterProduct)
+  } else {
+    setProductsFitlered(products)
+  }
+  
+  },[currentCategory])
   return (
     <>
       <div className="container" >
-        <Dropdown
-          menu={{
-            items,
-            selectable: true,
-            defaultSelectedKeys: ['3'],
-          }}
-        >
-          <Typography.Link>
-            <Space>
-              Fiter
-              <DownOutlined />
-            </Space>
-          </Typography.Link>
-        </Dropdown>
+        <span className='category-btns'>
+          <Button onClick={(e)=>handleMenu(e)} id='ALL' type="primary">ALL</Button>
+        {
+          category.map((category, index) => {
+              return (
+                <Button key={index} type="primary" onClick={(e)=>handleMenu(e)}>{category}</Button>
+              )
+          })
+        }
+        </span>
+       
 
         <div className="container-products">
           {currentPageProducts &&
             currentPageProducts.map(product => {
               const img = product.image
               // console.log(img)
-              
+
 
               return (<div key={product._id}>
                 <Card
                   style={{ width: 300 }}
                   cover={
                     <img
-                    className="img-products"
-                    alt="img"
-                    src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
-                    onError={(e) => {e.target.onerror = null; e.target.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}}
-                  />
-                  
+                      className="img-products"
+                      alt="img"
+                      src={img ? img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png'}
+                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png' }}
+                    />
+
 
                   }
                   actions={[
@@ -143,12 +169,12 @@ export function Products(props) {
             })
           }
 
-          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close'  okButtonProps={{
-    style: { backgroundColor: '#50a9bb', color: '#fff' }
-  }} className='modal'cancelButtonProps={{
- 
-    style: { backgroundColor: '#50a9bb', color: '#fff' }
-  }}>
+          <Modal mask={false} open={isModalOpen} onOk={handleOk} okText='Add to cart' onCancel={handleCancel} cancelText='Close' okButtonProps={{
+            style: { backgroundColor: '#50a9bb', color: '#fff' }
+          }} className='modal' cancelButtonProps={{
+
+            style: { backgroundColor: '#50a9bb', color: '#fff' }
+          }}>
             <h1>{modalProduct.name}.</h1>
             <img src={modalProduct.image} alt={modalProduct.name} />
             <p>Brand: {modalProduct.brand}</p>
